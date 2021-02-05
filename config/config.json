@@ -1,0 +1,29 @@
+{
+  "development": {
+    "username": "romgrk",
+    "password": null,
+    "database": "virus_seq",
+    "host": "localhost",
+    "port": 5432,
+    "protocol": "postgres",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "romgrk",
+    "password": null,
+    "database": "virus_seq",
+    "host": "localhost",
+    "port": 5432,
+    "protocol": "postgres",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": null,
+    "password": null,
+    "database": "virus_seq",
+    "host": "localhost",
+    "port": 5432,
+    "protocol": "postgres",
+    "dialect": "postgres"
+  }
+}
