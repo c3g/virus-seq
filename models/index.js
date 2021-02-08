@@ -4,6 +4,8 @@ const clone = require('clone');
 const Sequelize = require('sequelize');
 const { DataTypes } = Sequelize
 
+const { USER_TYPE } = require('../constants')
+
 const basename = path.basename(module.filename);
 
 const env = process.env.NODE_ENV || 'development';
@@ -30,6 +32,7 @@ fs
   db[model.name] = model;
 });
 
+// Setup & initialize database
 (async () => {
   console.log('Sync start')
   try {
@@ -38,6 +41,20 @@ fs
   } catch (err) {
     console.error('Sync failed')
     console.error(err)
+  }
+
+  const users = await db.User.findAll()
+  if (users.length === 0) {
+    await db.User.create({
+      type: USER_TYPE.ADMIN,
+      firstName: 'Admin',
+      lastName: 'Admin',
+      institution: 'McGill',
+      institutionAddress: null,
+      lab: null,
+      email: 'romain.gregoire@mcgill.ca',
+      password: 'secret',
+    })
   }
 })();
 
