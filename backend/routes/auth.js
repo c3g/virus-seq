@@ -26,8 +26,4 @@ router.use('/logout', (req, res) => {
   okHandler(res)()
 })
 
-router.use('/', (req, res, next) => {
-  console.log('NOMATCH', req.url)
-})
-
 module.exports = router
