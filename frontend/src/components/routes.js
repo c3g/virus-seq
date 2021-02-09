@@ -2,49 +2,61 @@
  * routes.js
  */
 
-import Login from './login/Login';
-import SignUp from './signup/SignUp';
-import Users from './users/Users';
+import { Redirect } from 'react-router-dom'
+
+import { USER_TYPE } from '../constants'
+import Forgot from './forgot/Forgot'
+import Login from './login/Login'
+import SignUp from './signup/SignUp'
+import Users from './users/Users'
 
 const byName = {
   login: '/login',
+  forgot: '/forgot-password',
   profile: '/user/profile',
   afterLogin: '/user/profile',
   afterSignUp: '/user/profile',
 }
 
+const loginCondition = u => u ? null : <Redirect to={byName.login} />
+const adminCondition = u => u?.type === USER_TYPE.ADMIN ? null : <Redirect to={byName.login} />
+const notLoginCondition = u => !u ? null : <Redirect to={byName.profile} />
+
 const list = [
   {
     path: '/signup',
     render: () => <SignUp />,
+    if: notLoginCondition,
   },
   {
     path: byName.login,
     render: () => <Login />,
+    if: notLoginCondition,
   },
   {
-    path: '/forgot-password',
-    render: () => 'Forgot',
+    path: byName.forgot,
+    render: () => <Forgot />,
+    if: notLoginCondition,
   },
   {
     path: byName.profile,
     render: () => 'Profile',
-    login: true
+    if: loginCondition,
   },
   {
     path: '/user/submission',
     render: () => 'Submit',
-    login: true
+    if: loginCondition,
   },
   {
     path: '/user/history',
     render: () => 'History',
-    login: true
+    if: loginCondition,
   },
   {
     path: '/admin/users',
     render: () => <Users />,
-    admin: true
+    if: adminCondition,
   },
   {
     path: '/',

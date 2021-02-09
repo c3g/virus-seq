@@ -63,6 +63,20 @@ export const signup = data => (dispatch, getState) => {
   .catch(handleError(dispatch))
 }
 
+export const resetPassword = email => (dispatch, getState) => {
+  dispatch(setIsLoading(true))
+  return api.auth.resetPassword(email)
+  .then(() => afterLogin(dispatch, getState, false))
+  .catch(handleError(dispatch))
+}
+
+export const changePassword = data => (dispatch, getState) => {
+  dispatch(setIsLoading(true))
+  return api.auth.changePassword(data)
+  .then(user => afterLogin(dispatch, getState, user))
+  .catch(handleError(dispatch))
+}
+
 function afterLogin(dispatch, getState, user) {
   if (user === false)
     return dispatch(setUser(undefined))

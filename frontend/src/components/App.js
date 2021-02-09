@@ -3,10 +3,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from 'react-router-dom';
 import { useSelector } from 'react-redux'
-import { USER_TYPE } from '../constants'
 import Navbar from './navbar/Navbar';
 import routes from './routes'
 import './App.css';
@@ -25,10 +23,9 @@ function App() {
               key={r.path}
               path={r.path}
               render={() => {
-                if (r.login && !user)
-                  return <Redirect to={routes.byName.login} />
-                if (r.admin && user?.type !== USER_TYPE.ADMIN)
-                  return <Redirect to={routes.byName.profile} />
+                const result = r.if(user)
+                if (result)
+                  return result
                 return r.render()
               }}
             />

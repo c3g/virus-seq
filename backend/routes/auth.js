@@ -37,4 +37,18 @@ router.use('/signup', (req, res) => {
   .catch(errorHandler(res))
 })
 
+router.use('/reset-password', (req, res) => {
+  const email = req.body.email
+  User.resetPassword(email)
+  .then(okHandler(res))
+  .catch(errorHandler(res))
+})
+
+router.use('/change-password', (req, res) => {
+  const data = req.body
+  User.changePassword(data)
+  .then(() => login(req, res))
+  .catch(errorHandler(res))
+})
+
 module.exports = router

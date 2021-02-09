@@ -7,7 +7,10 @@ const config = require('../config')
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User',
     {
-      type: DataTypes.ENUM(Object.values(USER_TYPE)),
+      type: {
+        type: DataTypes.ENUM(Object.values(USER_TYPE)),
+        defaultValue: USER_TYPE.NORMAL
+      },
       firstName: DataTypes.STRING,
       lastName: DataTypes.STRING,
       institution: DataTypes.STRING,
@@ -84,9 +87,61 @@ module.exports = (sequelize, DataTypes) => {
     return user
   }
 
+  User.resetPassword = async function(email) {
+    let user = await User.findOne({ where: { email } })
+    if (!user) {
+      // Fail silently, avoids enumeration attacks
+      return undefined
+    }
+    user.token = uuid.v4()
+    await user.save()
+    await sendEmail({
+      to: email,
+      subject: 'Password reset: virus-seq portal',
+      html: `
+        Hi,<br/>
+        <br/>
+        You have requested a password reset. Follow the link below to reset your password.<br/>
+        <br/>
+        <a href="${config.server}/forgot-password?token=${user.token}&email=${encodeURIComponent(email)}">
+          Reset Password
+        </a><br/>
+        <br/>
+        NOTE: If you have not requested this reset, please let us know by replying to this email.<br/>
+        <br/>
+        Regards,<br/>
+        <br/>
+        The virus-seq team
+      `
+    })
+  }
+
+  User.changePassword = async function(data) {
+    if (!data.email)
+      throw new Error('Missing fields')
+    let user = await User.findOne({ where: { email: data.email } })
+    if (!user)
+      throw new Error('Email not found')
+    if (user.token !== data.token)
+      throw new Error('Invalid token')
+    user.password = data.password
+    user.token = uuid.v4()
+    await user.save()
+    return user
+  }
+
   // Instance methods
   User.prototype.validatePassword = function(password) {
+    if (!this.password)
+      return false
     return bcrypt.compareSync(password, this.password)
+  }
+
+  User.prototype.toJSON = function() {
+    const result = Object.assign({}, this.get())
+    result.password = result.password ? true : false
+    delete result.token
+    return result
   }
 
   return User;

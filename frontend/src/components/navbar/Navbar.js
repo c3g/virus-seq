@@ -15,7 +15,7 @@ export default function Navbar() {
           <Link to='/'>Home</Link>
         </li>
         <li>
-          <Link to='/user/profile'>Profile</Link>
+          <Link to='/user/submission'>Submit Data</Link>
         </li>
         <li>
           <Link to='/admin/users'>Users</Link>
@@ -24,9 +24,9 @@ export default function Navbar() {
       <div className={styles.user}>
         {user &&
           <>
-            <span className={styles.userName}>
+            <Link to='/user/profile' className={styles.userName}>
               {user.firstName} {user.lastName}
-            </span>
+            </Link>
             <button onClick={() => dispatch(logout())}>
               Logout
             </button>

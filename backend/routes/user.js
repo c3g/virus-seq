@@ -9,11 +9,7 @@ router.use('/', isAdmin)
 router.use('/list', (req, res) => {
   User.findAll()
   .then(users => {
-    return users.map(u => {
-      const user = u.toJSON()
-      user.password = user.password ? true : false
-      return user
-    })
+    return users.map(u => u.toJSON())
   })
   .then(dataHandler(res))
   .catch(errorHandler(res))

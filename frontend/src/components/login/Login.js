@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { login } from '../../store/auth'
 import routes from '../routes'
 import styles from './Login.module.css'
@@ -33,7 +33,7 @@ export default function Login() {
         </div>
         <button disabled={isLoading}>
           {isLoading ? 'Logging In...' : 'Login'}
-        </button>
+        </button> <Link to={routes.byName.forgot}><small>Forgot password?</small></Link>
         {error &&
           <div>
             {error.message}
