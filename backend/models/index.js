@@ -9,7 +9,7 @@ const { USER_TYPE } = require('../constants')
 const basename = path.basename(module.filename);
 
 const env = process.env.NODE_ENV || 'development';
-const config = clone(require('../config/config.json')[env]);
+const config = clone(require('../config').database[env]);
 config['logging'] = console.log;
 const sequelize = new Sequelize(
   config.database,
