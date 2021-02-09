@@ -5,7 +5,9 @@
 import { Redirect } from 'react-router-dom'
 
 import { USER_TYPE } from '../constants'
+
 import Forgot from './forgot/Forgot'
+import Home from './home/Home'
 import Login from './login/Login'
 import Profile from './profile/Profile'
 import Sequences from './sequences/Sequences'
@@ -63,7 +65,7 @@ const list = [
   },
   {
     path: '/',
-    render: () => 'Home',
+    render: () => <Home />,
   },
 ]
 
