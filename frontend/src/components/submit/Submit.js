@@ -27,6 +27,7 @@ export default function Submit() {
 
   return (
     <div>
+      <h2>Submit</h2>
       <form className={styles.form} onSubmit={onSubmit}>
         <div>
           <label htmlFor='metadata'>Metadata</label>

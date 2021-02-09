@@ -1,5 +1,7 @@
 
-.form label {
+.form label,
+.form input,
+.form button {
   display: inline-block;
   margin-right: 0.5rem;
 }

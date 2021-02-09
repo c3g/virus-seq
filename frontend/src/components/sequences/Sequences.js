@@ -15,7 +15,7 @@ export default function Sequences() {
 
   return (
     <div>
-      <h1>Sequences</h1>
+      <h2>Sequences</h2>
 
       {error &&
         <div>

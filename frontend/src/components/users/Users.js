@@ -12,7 +12,7 @@ export default function Users() {
 
   return (
     <div>
-      <h1>Users</h1>
+      <h2>Users</h2>
 
       <div className={styles.inviteContainer}>
         <h4>Invite new user</h4>

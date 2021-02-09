@@ -22,6 +22,7 @@ export default function Login() {
 
   return (
     <div>
+      <h2>Login</h2>
       <form className={styles.form} onSubmit={onSubmit}>
         <div>
           <label htmlFor='email'>Email</label>

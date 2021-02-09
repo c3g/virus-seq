@@ -14,6 +14,7 @@ export default function Forgot() {
 
   return (
     <div>
+      <h2>Forgot Password</h2>
       {hasData ?
         <ChangePassword email={email} token={token} /> :
         <ResetPassword />
@@ -45,10 +46,10 @@ function ChangePassword({ email, token }) {
         <div>
           <label htmlFor='password'>Password</label>
           <input id='password' type='password' required disabled={isLoading}/>
+          <button disabled={isLoading}>
+            {isLoading ? 'Updating...' : 'Reset Password'}
+          </button>
         </div>
-        <button disabled={isLoading}>
-          {isLoading ? 'Updating...' : 'Reset Password'}
-        </button>
         {error &&
           <div>
             {error.message}
@@ -85,10 +86,10 @@ function ResetPassword() {
       <div>
         <label htmlFor='email'>Email</label>
         <input id='email' type='email' required />
+        <button disabled={isLoading}>
+          {isLoading ? 'Sending...' : 'Reset Password'}
+        </button>
       </div>
-      <button disabled={isLoading}>
-        {isLoading ? 'Sending...' : 'Reset Password'}
-      </button>
       {error &&
         <div>
           {error.message}

@@ -53,6 +53,7 @@ export default function SignUp() {
 
   return (
     <div>
+      <h2>Sign Up</h2>
       <form className={styles.form} onSubmit={onSubmit}>
         <input id='token' type='hidden' value={searchParams.get('token')} />
         <fieldset>
