@@ -1,44 +1,40 @@
-const path = require('path');
-const uuid = require('uuid');
-const express = require('express');
-const fileUpload = require('express-fileupload');
-const favicon = require('serve-favicon');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const session = require('express-session');
+const path = require('path')
+const express = require('express')
+const fileUpload = require('express-fileupload')
+const logger = require('morgan')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const session = require('cookie-session')
+// const favicon = require('serve-favicon')
 
 const passport = require('./passport')
 
-const app = express();
+const app = express()
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'jade')
 
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+//app.use(favicon(__dirname + '/public/favicon.ico'))
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }))
 app.use(session({
-  genid: () => uuid.v1(),
   secret: 'Phoenix,BerniceAjgioiguoquou05u98unfau0t84095u02105aioa',
-  saveUninitialized: true,
-  resave: true
 }))
 app.use(passport.initialize())
 app.use(passport.session())
 
 // API routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/user', require('./routes/user'));
+app.use('/api/auth', require('./routes/auth'))
+app.use('/api/user', require('./routes/user'))
 
 // Frontend
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', sendIndex)
 
 function sendIndex(req, res) {
@@ -49,33 +45,33 @@ function sendIndex(req, res) {
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+  const err = new Error('Not Found')
+  err.status = 404
+  next(err)
+})
 
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use((err, req, res, next) => {
-    res.status(err.status || 500);
-    console.error(err.stack);
+    res.status(err.status || 500)
+    console.error(err.stack)
     res.render('error', {
       message: err.message,
       error: err
-    });
-  });
+    })
+  })
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use((err, req, res, next) => {
-  res.status(err.status || 500);
+  res.status(err.status || 500)
   res.render('error', {
     message: err.message,
     error: {}
-  });
-});
+  })
+})
 
 
-module.exports = app;
+module.exports = app
