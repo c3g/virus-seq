@@ -22,13 +22,14 @@ module.exports = (sequelize, DataTypes) => {
           return hashPassword(user)
         }
       },
-      instanceMethods: {
-        validPassword: function(password) {
-          return bcrypt.compareSync(password, this.password)
-        }
-      }
     }
   );
+
+  // Instance methods
+  User.prototype.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password)
+  }
+
   return User;
 };
 

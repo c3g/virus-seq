@@ -32,11 +32,17 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// API routes
+app.use('/api/auth', require('./routes/auth'));
+
+// Frontend
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', sendIndex)
 
-app.use('/',      require('./routes/index'));
-app.use('/users', require('./routes/users'));
-
+function sendIndex(req, res) {
+  res.sendFile(path.join(__dirname, 'public/index.html'))
+}
 
 // Error handlers
 
