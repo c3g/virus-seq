@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import isEmail from 'sane-email-validation'
 import errorToJSON from '../../helpers/errorToJSON'
-import api from '../../api'
-import { list, invite } from '../../store/user'
-import routes from '../routes'
+import { invite } from '../../store/user'
 import styles from './Users.module.css'
 
 export default function Users() {
@@ -29,6 +26,9 @@ export default function Users() {
             <td>ID</td>
             <td>Name</td>
             <td>Email</td>
+            <td>Lab</td>
+            <td>Institution</td>
+            <td>Address</td>
             <td>Signed Up</td>
           </tr>
         </thead>
@@ -38,6 +38,9 @@ export default function Users() {
               <td>{user.id}</td>
               <td>{user.firstName} {user.lastName}</td>
               <td>{user.email}</td>
+              <td>{user.lab}</td>
+              <td>{user.institution}</td>
+              <td>{user.institutionAddress?.replace(/\n/g, ', ')}</td>
               <td>{String(user.password)}</td>
             </tr>
           )}
