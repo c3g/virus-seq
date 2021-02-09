@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
+  // Static methods
+  Sequence.ingest = async function(userId, metadata, sequences) {
+    throw new Error('unimplemented')
+  }
+
   return Sequence;
 };
 

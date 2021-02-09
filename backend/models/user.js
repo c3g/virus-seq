@@ -137,6 +137,10 @@ module.exports = (sequelize, DataTypes) => {
     return bcrypt.compareSync(password, this.password)
   }
 
+  User.prototype.isAdmin = function() {
+    return this.type === USER_TYPE.ADMIN
+  }
+
   User.prototype.toJSON = function() {
     const result = Object.assign({}, this.get())
     result.password = result.password ? true : false

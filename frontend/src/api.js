@@ -20,6 +20,11 @@ const api = {
     list: () => get('/user/list'),
     invite: email => post('/user/invite', { email }),
   },
+
+  sequence: {
+    list: () => get('/sequence/list'),
+    submit: (metadata, sequences) => post('/sequence/submit', form({ metadata, sequences })),
+  }
 }
 
 export default api
