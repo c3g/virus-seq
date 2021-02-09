@@ -7,7 +7,9 @@ import { Redirect } from 'react-router-dom'
 import { USER_TYPE } from '../constants'
 import Forgot from './forgot/Forgot'
 import Login from './login/Login'
+import Sequences from './sequences/Sequences'
 import SignUp from './signup/SignUp'
+import Submit from './submit/Submit'
 import Users from './users/Users'
 
 const byName = {
@@ -18,45 +20,45 @@ const byName = {
   afterSignUp: '/user/profile',
 }
 
-const loginCondition = u => u ? null : <Redirect to={byName.login} />
-const adminCondition = u => u?.type === USER_TYPE.ADMIN ? null : <Redirect to={byName.login} />
-const notLoginCondition = u => !u ? null : <Redirect to={byName.profile} />
+const login = u => u ? null : <Redirect to={byName.login} />
+const admin = u => u?.type === USER_TYPE.ADMIN ? null : <Redirect to={byName.login} />
+const notLogin = u => !u ? null : <Redirect to={byName.profile} />
 
 const list = [
   {
     path: '/signup',
     render: () => <SignUp />,
-    if: notLoginCondition,
+    if: notLogin,
   },
   {
     path: byName.login,
     render: () => <Login />,
-    if: notLoginCondition,
+    if: notLogin,
   },
   {
     path: byName.forgot,
     render: () => <Forgot />,
-    if: notLoginCondition,
+    if: notLogin,
   },
   {
     path: byName.profile,
     render: () => 'Profile',
-    if: loginCondition,
+    if: login,
   },
   {
-    path: '/user/submission',
-    render: () => 'Submit',
-    if: loginCondition,
+    path: '/user/submit',
+    render: () => <Submit />,
+    if: login,
   },
   {
-    path: '/user/history',
-    render: () => 'History',
-    if: loginCondition,
+    path: '/user/sequences',
+    render: () => <Sequences />,
+    if: login,
   },
   {
     path: '/admin/users',
     render: () => <Users />,
-    if: adminCondition,
+    if: admin,
   },
   {
     path: '/',

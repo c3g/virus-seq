@@ -1,5 +1,6 @@
 const path = require('path')
 const express = require('express')
+const flash = require('express-flash')
 const fileUpload = require('express-fileupload')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
@@ -22,16 +23,22 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }))
+app.use(fileUpload({
+  useTempFiles : true,
+  tempFileDir: '/tmp',
+  limits: { fileSize: 50 * 1024 * 1024 },
+}))
 app.use(session({
   secret: 'Phoenix,BerniceAjgioiguoquou05u98unfau0t84095u02105aioa',
 }))
+app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
 
 // API routes
-app.use('/api/auth', require('./routes/auth'))
-app.use('/api/user', require('./routes/user'))
+app.use('/api/auth',     require('./routes/auth'))
+app.use('/api/user',     require('./routes/user'))
+app.use('/api/sequence', require('./routes/sequence'))
 
 // Frontend
 app.use(express.static(path.join(__dirname, 'public')))

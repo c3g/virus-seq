@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
 
 import auth, { isLoggedIn } from './auth'
+import sequence from './sequence'
 import user from './user'
 
 // TODO: implement this
@@ -13,6 +14,7 @@ const store = configureStore({
   preloadedState,
   reducer: {
     auth,
+    sequence,
     user,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger),

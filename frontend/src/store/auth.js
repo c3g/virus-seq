@@ -3,6 +3,7 @@ import errorToJSON from '../helpers/errorToJSON'
 import api from '../api'
 import { USER_TYPE } from '../constants'
 import { list as listUsers } from './user'
+import { list as listSequences } from './sequence'
 
 export const slice = createSlice({
   name: 'auth',
@@ -20,6 +21,9 @@ export const slice = createSlice({
     setUser: (state, action) => {
       state.isLoading = false
       state.user = action.payload
+      if (state.user) {
+        state.user.isAdmin = state.user.type === USER_TYPE.ADMIN
+      }
       state.error = undefined
     },
     setError: (state, action) => {
@@ -82,6 +86,7 @@ function afterLogin(dispatch, getState, user) {
     return dispatch(setUser(undefined))
   if (user.type === USER_TYPE.ADMIN)
     dispatch(listUsers())
+  dispatch(listSequences())
   dispatch(setUser(user))
   return getState().auth.user
 }

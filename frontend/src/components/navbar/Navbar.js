@@ -6,6 +6,7 @@ import styles from './Navbar.module.css'
 
 export default function Navbar() {
   const user = useSelector(s => s.auth.user);
+  const isAdmin = user?.isAdmin
   const dispatch = useDispatch()
 
   return (
@@ -15,11 +16,16 @@ export default function Navbar() {
           <Link to='/'>Home</Link>
         </li>
         <li>
-          <Link to='/user/submission'>Submit Data</Link>
+          <Link to='/user/submit'>Submit Data</Link>
         </li>
         <li>
-          <Link to='/admin/users'>Users</Link>
+          <Link to='/user/sequences'>Past Submissions</Link>
         </li>
+        {isAdmin &&
+          <li>
+            <Link to='/admin/users'>Users</Link>
+          </li>
+        }
       </ul>
       <div className={styles.user}>
         {user &&

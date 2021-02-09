@@ -1,0 +1,8 @@
+
+.form label {
+  display: inline-block;
+  width: 6rem;
+}
+.form input {
+  margin-right: 0.5rem;
+}

@@ -1,0 +1,4 @@
+filename	strain	virus	date	date_submitted	province	age	sex	submitting_lab	url
+L00210314.v0.fasta	Canada/Qc-L00210314/2020	ncov	2020-02-25	2020-09-14	Quebec	41	F	LSPQ	http://www.covseq.ca/data-info
+L00212401.v0.fasta	Canada/Qc-L00212401/2020	ncov	2020-03-04	2020-09-14	Quebec	42	M	LSPQ	http://www.covseq.ca/data-info
+L00213013.v0.fasta	Canada/Qc-L00213013/2020	ncov	2020-03-06	2020-09-14	Quebec	61	F	LSPQ	http://www.covseq.ca/data-info
