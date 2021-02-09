@@ -29,10 +29,11 @@ router.use('/logout', (req, res) => {
 })
 
 router.use('/signup', (req, res) => {
+  if (req.user)
+    return errorHandler(res)(new Error('Already logged in'))
   const data = req.body
   User.signup(data)
-  .then(user => login(data))
-  .then(dataHandler(res))
+  .then(() => login(req, res))
   .catch(errorHandler(res))
 })
 

@@ -3,15 +3,18 @@
  */
 
 import Login from './login/Login';
+import SignUp from './signup/SignUp';
+import Users from './users/Users';
 
 const byName = {
   afterLogin: '/user/profile',
+  afterSignUp: '/user/profile',
 }
 
 const list = [
   {
     path: '/signup',
-    render: () => 'Sign Up',
+    render: () => <SignUp />,
   },
   {
     path: '/login',
@@ -35,7 +38,7 @@ const list = [
   },
   {
     path: '/admin/users',
-    render: () => 'Users',
+    render: () => <Users />,
   },
   {
     path: '/',

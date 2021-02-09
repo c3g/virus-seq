@@ -15,10 +15,10 @@ export default function Navbar() {
           <Link to='/'>Home</Link>
         </li>
         <li>
-          <Link to='/signup'>About</Link>
+          <Link to='/user/profile'>Profile</Link>
         </li>
         <li>
-          <Link to='/users'>Users</Link>
+          <Link to='/admin/users'>Users</Link>
         </li>
       </ul>
       <div className={styles.user}>

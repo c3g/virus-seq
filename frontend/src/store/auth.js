@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import errorToJSON from '../helpers/errorToJSON'
 import api from '../api'
+import { USER_TYPE } from '../constants'
+import { list as listUsers } from './user'
 
 export const slice = createSlice({
   name: 'auth',
@@ -18,6 +20,7 @@ export const slice = createSlice({
     setUser: (state, action) => {
       state.isLoading = false
       state.user = action.payload
+      state.error = undefined
     },
     setError: (state, action) => {
       state.isLoading = false
@@ -32,25 +35,48 @@ export const { setIsLoading, setUser, setError } = slice.actions;
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched
-export const isLoggedIn = () => dispatch => {
+export const isLoggedIn = () => (dispatch, getState) => {
   dispatch(setIsLoading(true))
   return api.auth.isLoggedIn()
-  .then(user => dispatch(setUser(user)))
-  .catch(error => dispatch(setError(errorToJSON(error))))
+  .then(user => afterLogin(dispatch, getState, user))
+  .catch(handleError(dispatch))
 }
 
-export const login = credentials => dispatch => {
+export const login = credentials => (dispatch, getState) => {
   dispatch(setIsLoading(true))
   return api.auth.login(credentials)
-  .then(user => dispatch(setUser(user)))
-  .catch(error => dispatch(setError(errorToJSON(error))))
+  .then(user => afterLogin(dispatch, getState, user))
+  .catch(handleError(dispatch))
 }
 
-export const logout = () => dispatch => {
+export const logout = () => (dispatch, getState) => {
   dispatch(setIsLoading(true))
   return api.auth.logout()
   .then(() => dispatch(setUser(undefined)))
-  .catch(error => dispatch(setError(errorToJSON(error))))
+  .catch(handleError(dispatch))
+}
+
+export const signup = data => (dispatch, getState) => {
+  dispatch(setIsLoading(true))
+  return api.auth.signup(data)
+  .then(user => afterLogin(dispatch, getState, user))
+  .catch(handleError(dispatch))
+}
+
+function afterLogin(dispatch, getState, user) {
+  if (user === false)
+    return dispatch(setUser(undefined))
+  if (user.type === USER_TYPE.ADMIN)
+    dispatch(listUsers())
+  dispatch(setUser(user))
+  return getState().auth.user
+}
+
+function handleError(dispatch) {
+  return error => {
+    dispatch(setError(errorToJSON(error)))
+    return undefined
+  }
 }
 
 // The function below is called a selector and allows us to select a value from

@@ -40,30 +40,39 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   // Static methods
-  User.invite = function(email) {
-    return User.create({ email })
-    .then(user => {
-      return sendEmail({
-        to: email,
-        subject: 'Invitation: virus-seq portal',
-        html: `
-          Hi,<br/>
-          <br/>
-          You have been invited to join the virus-seq portal.<br/>
-          <br/>
-          <a href="${config.server}/signup?token=${user.token}&email=${encodeURIComponent(email)}">Sign Up</a>
-          <br/>
-          Regards,<br/>
-          <br/>
-          The virus-seq team
-        `
-      })
-      .then(() => user)
+  User.invite = async function(email) {
+    let user = await User.findOne({ where: { email } })
+    if (user) {
+      if (user.password === null)
+        await User.destroy({ where: { email } })
+      else
+        throw new Error('User already exists')
+    }
+    user = await User.create({ email })
+    await sendEmail({
+      to: email,
+      subject: 'Invitation: virus-seq portal',
+      html: `
+        Hi,<br/>
+        <br/>
+        You have been invited to join the virus-seq portal.<br/>
+        <br/>
+        <a href="${config.server}/signup?token=${user.token}&email=${encodeURIComponent(email)}">Sign Up</a><br/>
+        <br/>
+        Regards,<br/>
+        <br/>
+        The virus-seq team
+      `
     })
+    return user
   }
 
   User.signup = async function(data) {
-    const user = await User.findOne({ where: { email: data.email, token: data.token } })
+    const user = await User.findOne({ where: { token: data.token } })
+    if (!user)
+      throw new Error('Invalid token. Request a new invite link.')
+    if (user.password !== null)
+      throw new Error('User already exists')
     for (let key in data) {
       user[key] = data[key]
     }
