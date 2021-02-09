@@ -8,10 +8,12 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('./models').User;
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
+  done(null, user.id)
+})
 passport.deserializeUser((id, done) => {
-  User.findOne(id).success(user => { done(null, user); });
+  User.findByPk(id)
+  .then(user => { done(null, user) })
+  .catch(err => { done(err, null) })
 });
 
 // authentication setup

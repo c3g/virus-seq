@@ -41,6 +41,7 @@ function apiFetch(method, route, body, options = { abort: false, complex: false 
   }
 
   const request = fetch(`${API_BASE_PATH}${route}`, {
+    credentials: 'include',
     method,
     headers,
     signal,
