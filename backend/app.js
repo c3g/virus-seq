@@ -1,9 +1,9 @@
-const express = require('express');
 const path = require('path');
-const flash = require('express-flash');
+const uuid = require('uuid');
+const express = require('express');
+const fileUpload = require('express-fileupload');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
-const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -19,19 +19,19 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
-app.use(flash());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(logger('dev'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
+app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }))
 app.use(session({
   genid: () => uuid.v1(),
   secret: 'Phoenix,BerniceAjgioiguoquou05u98unfau0t84095u02105aioa',
   saveUninitialized: true,
   resave: true
-}));
-app.use(passport.initialize());
-app.use(passport.session());
+}))
+app.use(passport.initialize())
+app.use(passport.session())
 
 // API routes
 app.use('/api/auth', require('./routes/auth'));
