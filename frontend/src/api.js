@@ -19,6 +19,7 @@ const api = {
   user: {
     list: () => get('/user/list'),
     invite: email => post('/user/invite', { email }),
+    update: data => post('/user/update', data),
   },
 
   sequence: {

@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom'
 import { USER_TYPE } from '../constants'
 import Forgot from './forgot/Forgot'
 import Login from './login/Login'
+import Profile from './profile/Profile'
 import Sequences from './sequences/Sequences'
 import SignUp from './signup/SignUp'
 import Submit from './submit/Submit'
@@ -42,7 +43,7 @@ const list = [
   },
   {
     path: byName.profile,
-    render: () => 'Profile',
+    render: () => <Profile />,
     if: login,
   },
   {

@@ -48,6 +48,19 @@ export const invite = email => (dispatch, getState) => {
       .filter(u => u.email !== email)
       .concat(user)
     dispatch(setList(users))
+    return user
+  })
+}
+
+export const update = data => (dispatch, getState) => {
+  return api.user.update(data)
+  .then(user => {
+    const previousUsers = getState().user.list
+    const users = previousUsers
+      .filter(u => u.id !== data.id)
+      .concat(user)
+    dispatch(setList(users))
+    return user
   })
 }
 

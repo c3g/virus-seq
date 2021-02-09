@@ -22,4 +22,19 @@ router.use('/invite', (req, res) => {
   .catch(errorHandler(res))
 })
 
+router.use('/update', (req, res) => {
+  const data = req.body
+  if (!data.id)
+    return errorHandler(res)(new Error('Invalid request'))
+  const currentUser = req.user
+  if (!currentUser.isAdmin() && data.id !== currentUser.id)
+    return errorHandler(res)(new Error('Unauthorized request'))
+  if (!currentUser.isAdmin() && data.type !== undefined)
+    return errorHandler(res)(new Error('Unauthorized request'))
+  User.update(data, { where: { id: data.id }, individualHooks: true })
+  .then(([count, users]) => users[0])
+  .then(dataHandler(res))
+  .catch(errorHandler(res))
+})
+
 module.exports = router

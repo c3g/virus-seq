@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
             user.token = uuid.v4()
           })
         },
+
         beforeUpdate: (user, options) => {
           if (user.password === null || user.password.startsWith('$2b$'))
             return

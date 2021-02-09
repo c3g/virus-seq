@@ -60,7 +60,7 @@ export default function SignUp() {
           <label htmlFor='email'>Email</label>
           <input id='email' type='email' required defaultValue={searchParams.get('email')} />
           <label htmlFor='password'>Password</label>
-          <input id='password' type='password' required />
+          <input id='password' type='password' required minLength={6} />
         </fieldset>
 
         <fieldset>

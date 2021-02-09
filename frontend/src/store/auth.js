@@ -2,13 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 import errorToJSON from '../helpers/errorToJSON'
 import api from '../api'
 import { USER_TYPE } from '../constants'
-import { list as listUsers } from './user'
+import { list as listUsers, update as updateUser } from './user'
 import { list as listSequences } from './sequence'
 
 export const slice = createSlice({
   name: 'auth',
   initialState: {
-    value: 0,
     isLoading: false,
     user: undefined,
     error: undefined,
@@ -20,10 +19,10 @@ export const slice = createSlice({
     },
     setUser: (state, action) => {
       state.isLoading = false
-      state.user = action.payload
-      if (state.user) {
-        state.user.isAdmin = state.user.type === USER_TYPE.ADMIN
-      }
+      const user = action.payload ?
+        { ...action.payload, isAdmin: action.payload.type === USER_TYPE.ADMIN } :
+        action.payload
+      state.user = user
       state.error = undefined
     },
     setError: (state, action) => {
@@ -78,6 +77,16 @@ export const changePassword = data => (dispatch, getState) => {
   dispatch(setIsLoading(true))
   return api.auth.changePassword(data)
   .then(user => afterLogin(dispatch, getState, user))
+  .catch(handleError(dispatch))
+}
+
+export const update = data => (dispatch, getState) => {
+  dispatch(setIsLoading(true))
+  return dispatch(updateUser(data))
+  .then(user => {
+    dispatch(setUser(user))
+    return user
+  })
   .catch(handleError(dispatch))
 }
 
