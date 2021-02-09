@@ -11,6 +11,11 @@ const api = {
     isLoggedIn: () => get('/auth/is-logged-in'),
     login: credentials => post('/auth/login', credentials),
     logout: () => post('/auth/logout'),
+    signup: data => post('/auth/signup', data),
+  },
+  user: {
+    list: () => get('/user/list'),
+    invite: email => post('/user/invite', { email }),
   },
 }
 

@@ -35,6 +35,7 @@ app.use(passport.session());
 
 // API routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/user', require('./routes/user'));
 
 // Frontend
 app.use(express.static(path.join(__dirname, 'public')));

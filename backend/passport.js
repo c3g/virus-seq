@@ -23,7 +23,7 @@ passport.use(
       if (!user) {
         return done(null, false, { message: 'Invalid credentials' });
       }
-      if (!user.validPassword(password)) {
+      if (!user.validatePassword(password)) {
         return done(null, false, { message: 'Invalid credentials' });
       }
       return done(null, user);

@@ -20,7 +20,7 @@ describe('User', function() {
       password: 'hello'
     }).then(function(user) {
       user.password.should.not.equal('hello');
-      user.validPassword('hello').should.be.ok;
+      user.validatePassword('hello').should.be.ok;
       done();
     });
   });
