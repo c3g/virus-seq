@@ -30,7 +30,6 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "~6.5.0",
     "sequelize-cli": "~6.2.0",
-    "serve-favicon": "~2.2.0",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
