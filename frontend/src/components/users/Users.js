@@ -13,13 +13,15 @@ export default function Users() {
   return (
     <div>
       <h2>Users</h2>
+      <br/>
 
       <div className={styles.inviteContainer}>
-        <h4>Invite new user</h4>
+        <h3>Invite new user</h3>
         <Invite />
       </div>
+      <br/>
 
-      <h4>List</h4>
+      <h3>List</h3>
       <table className={styles.table}>
         <thead>
           <tr>
