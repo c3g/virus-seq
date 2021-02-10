@@ -1,0 +1,30 @@
+/*
+ * text.module.css
+ * Copyright (C) 2021 romgrk
+ *
+ * Distributed under terms of the MIT license.
+ */
+
+body {
+  --info:    #2D2BD4;
+  --success: #008900;
+  --warning: #A79605;
+  --danger:  #AA280F;
+}
+
+.info {
+  color: var(--info);
+  font-weight: bold;
+}
+.success {
+  color: var(--success);
+  font-weight: bold;
+}
+.warning {
+  color: var(--warning);
+  font-weight: bold;
+}
+.danger {
+  color: var(--danger);
+  font-weight: bold;
+}

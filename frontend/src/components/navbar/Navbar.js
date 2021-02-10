@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
+import Icon from '../Icon'
 import { logout } from '../../store/auth'
 import styles from './Navbar.module.css'
 
@@ -14,6 +15,7 @@ export default function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles.links}>
         <NavbarLink to='/'>Home</NavbarLink>
+        <div className={styles.separator} />
         {isLoggedIn &&
           <>
             <NavbarLink to='/user/submit'>Submit Data</NavbarLink>
@@ -23,11 +25,10 @@ export default function Navbar() {
         {isAdmin &&
           <NavbarLink to='/admin/users'>Users</NavbarLink>
         }
-        <div className={styles.separator} />
         {isLoggedIn &&
           <>
             <NavbarLink to='/user/profile'>
-              {user.firstName} {user.lastName}
+              <Icon name='user' /> {user.firstName} {user.lastName}
             </NavbarLink>
             <button onClick={() => dispatch(logout())}>
               Logout
