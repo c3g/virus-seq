@@ -16,7 +16,6 @@ export default function Submit() {
     const sequences = form.elements.sequences.files[0]
     dispatch(submit(metadata, sequences))
     .then(results => {
-      debugger
       if (results) {
         form.elements.metadata.value = []
         form.elements.sequences.value = []
