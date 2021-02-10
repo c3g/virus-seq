@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       tableName: 'users',
+      paranoid: true,
       hooks: {
         beforeCreate: (user, options) => {
           return hashPassword(user.password)
