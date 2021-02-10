@@ -7,4 +7,10 @@ const USER_TYPE = {
   ADMIN: 'ADMIN',
 }
 
-module.exports = { USER_TYPE }
+const SEX = {
+  MALE: 'M',
+  FEMALE: 'F',
+  UNKNOWN: 'Unknown',
+}
+
+module.exports = { USER_TYPE, SEX }

@@ -3,6 +3,8 @@ const fs = require('fs').promises
 const parse = require('csv-parse/lib/sync')
 const StreamZip = require('node-stream-zip')
 
+const { SEX } = require('../constants')
+
 module.exports = (sequelize, DataTypes) => {
   const Sequence = sequelize.define('Sequence',
     {
@@ -10,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       strain:         { type: DataTypes.STRING,  allowNull: false },
       collectionDate: { type: DataTypes.DATE,    allowNull: false },
       age:            { type: DataTypes.STRING,  allowNull: false },
-      sex:            { type: DataTypes.STRING,  allowNull: false },
+      sex:            { type: DataTypes.ENUM(Object.values(SEX)), allowNull: false },
       province:       { type: DataTypes.STRING,  allowNull: false },
       lab:            { type: DataTypes.STRING,  allowNull: false },
       data:           { type: DataTypes.TEXT,    allowNull: false },
