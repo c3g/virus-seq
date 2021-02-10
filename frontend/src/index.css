@@ -86,11 +86,15 @@ fieldset {
 }
 
 
+textarea,
+input {
+  border: 1px solid #bbb;
+}
+
 button {
   position: relative;
   background-color: #eee;
-  /* border: 1px solid #bbb; */
-  border: 1px solid #ccc;
+  border: 1px solid #bbb;
 }
 button::after {
   content: '';
