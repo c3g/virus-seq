@@ -1,47 +1,56 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { logout } from '../../store/auth'
 import styles from './Navbar.module.css'
 
 export default function Navbar() {
   const user = useSelector(s => s.auth.user);
+  const isLoggedIn = Boolean(user)
   const isAdmin = user?.isAdmin
   const dispatch = useDispatch()
 
   return (
     <nav className={styles.navbar}>
-      <ul className={styles.links}>
-        <li>
-          <Link to='/'>Home</Link>
-        </li>
-        <li>
-          <Link to='/user/submit'>Submit Data</Link>
-        </li>
-        <li>
-          <Link to='/user/sequences'>Past Submissions</Link>
-        </li>
-        {isAdmin &&
-          <li>
-            <Link to='/admin/users'>Users</Link>
-          </li>
-        }
-      </ul>
-      <div className={styles.user}>
-        {user &&
+      <div className={styles.links}>
+        <NavbarLink to='/'>Home</NavbarLink>
+        {isLoggedIn &&
           <>
-            <Link to='/user/profile' className={styles.userName}>
+            <NavbarLink to='/user/submit'>Submit Data</NavbarLink>
+            <NavbarLink to='/user/sequences'>Past Submissions</NavbarLink>
+          </>
+        }
+        {isAdmin &&
+          <NavbarLink to='/admin/users'>Users</NavbarLink>
+        }
+        <div className={styles.separator} />
+        {isLoggedIn &&
+          <>
+            <NavbarLink to='/user/profile'>
               {user.firstName} {user.lastName}
-            </Link>
+            </NavbarLink>
             <button onClick={() => dispatch(logout())}>
               Logout
             </button>
           </>
         }
-        {!user &&
-          <Link to='/login'>Login</Link>
+        {!isLoggedIn &&
+          <NavbarLink to='/login'>Login</NavbarLink>
         }
       </div>
     </nav>
-  );
+  )
+}
+
+function NavbarLink({ to, ...rest }) {
+  const location = useLocation()
+  const className =
+    doesLocationMatch(location.pathname, to) ? styles.active : undefined
+  return <Link to={to} className={className} {...rest} />
+}
+
+function doesLocationMatch(pathname, to) {
+  if (to.length === 1)
+    return to === pathname
+  return pathname.startsWith(to)
 }

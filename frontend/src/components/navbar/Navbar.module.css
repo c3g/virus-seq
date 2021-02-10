@@ -1,23 +1,26 @@
 
 .navbar {
   margin-bottom: 1rem;
-  display: flex;
-  flex-direction: row;
 }
 
 .links {
-  flex: 1;
+  display: flex;
+  flex-direction: row;
   list-style: none;
   padding: 0;
   margin: 0;
 }
-.links li {
+.links a {
   display: inline-block;
 }
-.links li:not(:last-child) {
+.links a:not(:last-child) {
   margin-right: 1rem;
 }
 
-.userName {
-  margin-right: 1rem;
+.separator {
+  flex: 1;
+}
+
+.active {
+  font-weight: bold;
 }
