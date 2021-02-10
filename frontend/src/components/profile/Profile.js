@@ -101,7 +101,6 @@ export default function Profile() {
           <input
             id='realPassword'
             type='password'
-            required
             autoComplete='new-password'
             placeholder='(leave empty to keep)'
             minLength={6}

@@ -1,6 +1,13 @@
 
 .navbar {
+  position: relative;
   margin-bottom: 1rem;
+}
+
+.logo {
+  position: absolute;
+  height: 1.5rem;
+  left:  -2rem;
 }
 
 .links {

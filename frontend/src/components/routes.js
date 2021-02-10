@@ -14,6 +14,7 @@ import Sequences from './sequences/Sequences'
 import SignUp from './signup/SignUp'
 import Submit from './submit/Submit'
 import Users from './users/Users'
+import Development from './Development'
 
 const byName = {
   login: '/login',
@@ -62,6 +63,10 @@ const list = [
     path: '/admin/users',
     render: () => <Users />,
     if: admin,
+  },
+  {
+    path: '/development',
+    render: () => <Development />,
   },
   {
     path: '/',

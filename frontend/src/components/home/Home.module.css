@@ -1,9 +1,17 @@
 
+.title {
+}
+
 .subtitle {
-  font-size: 1.3em;
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 2.8rem;
+  margin-bottom: 4rem;
 }
 
 .mainAction {
   text-align: center;
-  font-size: 2em;
+  font-size:   4rem;
+  line-height: 4rem;
+  font-weight: 500;
 }

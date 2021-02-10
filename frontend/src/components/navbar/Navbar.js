@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
+import logo from '../../assets/virus.svg'
 import Icon from '../Icon'
 import { logout } from '../../store/auth'
 import styles from './Navbar.module.css'
@@ -13,8 +14,12 @@ export default function Navbar() {
 
   return (
     <nav className={styles.navbar}>
+      <img src={logo} className={styles.logo} />
       <div className={styles.links}>
         <NavbarLink to='/'>Home</NavbarLink>
+        {process.env.NODE_ENV === 'development' &&
+          <NavbarLink to='/development'>Dev</NavbarLink>
+        }
         <div className={styles.separator} />
         {isLoggedIn &&
           <>
