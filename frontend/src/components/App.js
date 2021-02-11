@@ -11,6 +11,7 @@ import './App.css';
 
 function App() {
   const user = useSelector(s => s.auth.user)
+  const isLoading = useSelector(s => s.auth.isLoading)
 
   return (
     <Router>
@@ -24,8 +25,14 @@ function App() {
               path={r.path}
               render={() => {
                 const result = r.if?.(user)
-                if (result)
-                  return result
+                if (result) {
+                  // Avoid redirect while checking if user is already
+                  // logged in on page load.
+                  if (!isLoading)
+                    return result
+                  // FIXME: render loading indicator
+                  return null
+                }
                 return r.render()
               }}
             />

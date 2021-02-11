@@ -1,7 +1,9 @@
 
 const fs = require('fs').promises
+const path = require('path')
 const parse = require('csv-parse/lib/sync')
 const StreamZip = require('node-stream-zip')
+const Fasta = require('bioinformatics-parser').fasta
 
 const { SEX } = require('../constants')
 
@@ -26,8 +28,8 @@ module.exports = (sequelize, DataTypes) => {
   Sequence.ingest = async function(userId, metadata, sequences) {
     // throw new Error('unimplemented')
     const [items, sequencesByFilepath] = await Promise.all([
-      readMetadata(metadata.tempFilePath),
-      readSequences(sequences.tempFilePath),
+      readMetadata(metadata),
+      readSequences(sequences),
     ])
 
     const rows = items.map((i, n) => {
@@ -39,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         sex:            i.sex,
         province:       i.province,
         lab:            i.submitting_lab,
-        data:           sequencesByFilepath[i.filename],
+        data:           sequencesByFilepath[i.filename] || sequencesByFilepath[i.strain],
       }
 
       /* Row validation */
@@ -82,19 +84,46 @@ module.exports = (sequelize, DataTypes) => {
   return Sequence;
 };
 
-async function readMetadata(filepath) {
-  const data = (await fs.readFile(filepath)).toString()
+async function readMetadata(file) {
+  const data = (await fs.readFile(file.tempFilePath)).toString()
   return parse(data, {
     columns: true,
     delimiter: '\t',
   })
 }
-async function readSequences(filepath) {
-  const zip = new StreamZip.async({ file: filepath })
+
+async function readSequences(file) {
+  const ext = path.extname(file.name)
+  switch (ext) {
+    case '.zip':
+      return readSequencesZip(file)
+    case '.fa':
+    case '.faa':
+    case '.fasta':
+      return readSequencesFasta(file)
+  }
+  throw new Error(`Invalid file type: "${ext}"`)
+}
+
+async function readSequencesZip(file) {
+  const zip = new StreamZip.async({ file: file.tempFilePath })
   const result = {}
   const entries = await zip.entries()
   for (const entry of Object.values(entries)) {
     result[entry.name] = (await zip.entryData(entry.name)).toString('utf-8')
+  }
+  return result
+}
+
+async function readSequencesFasta(file) {
+  const content = (await fs.readFile(file.tempFilePath)).toString()
+  const { ok, error, result: sequences } = Fasta.parse(content)
+  if (!ok)
+    throw error
+  const result = {}
+  for (const sequence of sequences) {
+    const identifier = sequence.description.split(' ')[0]
+    result[identifier] = sequence.data
   }
   return result
 }
