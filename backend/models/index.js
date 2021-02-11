@@ -10,7 +10,7 @@ const basename = path.basename(module.filename);
 
 const env = process.env.NODE_ENV || 'development';
 const config = clone(require('../config').database[env]);
-config['logging'] = console.log;
+config.logging = env === 'development' ? console.log : false;
 const sequelize = new Sequelize(
   config.database,
   config.username,
@@ -18,18 +18,16 @@ const sequelize = new Sequelize(
   config
 );
 
-sequelize.authenticate()
-.then(() => console.log('sequelize ok'))
-.catch(err => console.log('sequelize fail', err))
 
-const db = {};
+// Exported models
+const models = {};
 
 fs
 .readdirSync(__dirname)
 .filter(file => (file.indexOf('.') !== 0) && (file !== basename))
 .forEach(file => {
   const model = require(path.join(__dirname, file))(sequelize, DataTypes);
-  db[model.name] = model;
+  models[model.name] = model;
 });
 
 // Setup & initialize database
@@ -43,9 +41,9 @@ fs
     console.error(err)
   }
 
-  const users = await db.User.findAll()
+  const users = await models.User.findAll()
   if (users.length === 0) {
-    await db.User.create({
+    await models.User.create({
       type: USER_TYPE.ADMIN,
       firstName: 'Admin',
       lastName: 'Admin',
@@ -58,7 +56,7 @@ fs
   }
 })();
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+models.sequelize = sequelize;
+models.Sequelize = Sequelize;
 
-module.exports = db;
+module.exports = models;

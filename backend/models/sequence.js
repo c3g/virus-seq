@@ -5,7 +5,17 @@ const parse = require('csv-parse/lib/sync')
 const StreamZip = require('node-stream-zip')
 const Fasta = require('bioinformatics-parser').fasta
 
-const { SEX } = require('../constants')
+const {
+  SEX,
+  PROVINCE,
+  PROVINCE_NAME,
+  PROVINCE_CODES,
+} = require('../constants')
+
+const getProvince = value =>
+  value in PROVINCE ? value :
+  value in PROVINCE_NAME ? PROVINCE_NAME[value] :
+  value === 'Unknown' ? null : value
 
 module.exports = (sequelize, DataTypes) => {
   const Sequence = sequelize.define('Sequence',
@@ -15,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       collectionDate: { type: DataTypes.DATE,    allowNull: false },
       age:            { type: DataTypes.INTEGER, allowNull: true },
       sex:            { type: DataTypes.ENUM(Object.values(SEX)), allowNull: false },
-      province:       { type: DataTypes.STRING,  allowNull: false },
+      province:       { type: DataTypes.ENUM(PROVINCE_CODES), allowNull: true },
       lab:            { type: DataTypes.STRING,  allowNull: false },
       data:           { type: DataTypes.TEXT,    allowNull: false },
     },
@@ -39,29 +49,35 @@ module.exports = (sequelize, DataTypes) => {
         collectionDate: i.date,
         age:            i.age,
         sex:            i.sex,
-        province:       i.province,
+        province:       getProvince(i.province),
         lab:            i.submitting_lab,
-        data:           sequencesByFilepath[i.filename] || sequencesByFilepath[i.strain],
+        data:           sequencesByFilepath[i.filename] ||
+                        sequencesByFilepath[i.strain],
       }
 
       /* Row validation */
       Object.keys(row).forEach(key => {
-        const value =
-          typeof row[key] === 'string' ?
-            row[key].trim() :
-            row[key]
         switch (key) {
           case 'age': {
-            if (value === 'Unknown') {
-              row[key] = null
+            if (row.age === 'Unknown') {
+              row.age = null
               return
             }
-            if (!/^\d+$/.test(value))
-              throw new Error(`Invalid value ("${value}") for "age", row ${n} (${i.filename})`)
-            row[key] = parseInt(value, 10)
+            if (!/^\d+$/.test(row.age))
+              throw new Error(`Invalid value ("${row.age}") for "age", row ${n} (${i.filename})`)
+            row.age = parseInt(row.age, 10)
+            return
+          }
+          case 'collectionDate': {
+            if (Number.isNaN(Date.parse(row.collectionDate)))
+              throw new Error(`Invalid value ("${row.collectionDate}") for "date", row ${n} (${i.filename})`)
             return
           }
           default: {
+            const value =
+              typeof row[key] === 'string' ?
+                row[key].trim() :
+                row[key]
             if (value === undefined || value === '')
               throw new Error(`Missing "${key}" for row ${n} (${i.filename})`)
           }
@@ -71,7 +87,7 @@ module.exports = (sequelize, DataTypes) => {
       return row
     })
 
-    return await Sequence.bulkCreate(rows)
+    return Sequence.bulkCreate(rows)
   }
 
   // Instance methods

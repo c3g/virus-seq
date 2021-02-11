@@ -3,6 +3,24 @@ import { useSelector, useDispatch } from 'react-redux'
 import { submit } from '../../store/sequence'
 import styles from './Submit.module.css'
 
+
+/* TODO: integrate this in the notes for metadata
+ * ON: 'Ontario',
+ * QC: 'Quebec',
+ * NS: 'Nova Scotia',
+ * NB: 'New Brunswick',
+ * MB: 'Manitoba',
+ * BC: 'British Columbia',
+ * PE: 'Prince Edward Island',
+ * SK: 'Saskatchewan',
+ * AB: 'Alberta',
+ * NL: 'Newfoundland and Labrador',
+ * NT: 'Northwest Territories',
+ * YT: 'Yukon',
+ * NU: 'Nunavut',
+ * or 'Unknown'
+ */
+
 export default function Submit() {
   const isLoading = useSelector(s => s.sequence.isLoading)
   const error = useSelector(s => s.sequence.error)
@@ -40,7 +58,7 @@ export default function Submit() {
             <li>filename: matching sequence's path (for zip files only)</li>
             <li>strain: virus strain (must match sequence's description for fasta files)</li>
             <li>date: collection date</li>
-            <li>province: province's name</li>
+            <li>province: province's two letter code or name</li>
             <li>age: age of the patient, as either an integer number or "Unknown"</li>
             <li>sex: "M", "F", or "Unknown"</li>
             <li>submitting_lab: lab submitting the sequence</li>
