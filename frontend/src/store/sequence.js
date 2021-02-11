@@ -49,7 +49,9 @@ export const submit = (metadata, sequences) => (dispatch, getState) => {
     dispatch(setList(newSequences))
     return sequences
   })
-  .catch(error => dispatch(setError(errorToJSON(error))))
+  .catch(error => {
+    dispatch(setError(errorToJSON(error)))
+  })
 }
 
 // The function below is called a selector and allows us to select a value from

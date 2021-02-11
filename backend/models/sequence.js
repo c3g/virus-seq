@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       userId:         { type: DataTypes.INTEGER, allowNull: false },
       strain:         { type: DataTypes.STRING,  allowNull: false },
       collectionDate: { type: DataTypes.DATE,    allowNull: false },
-      age:            { type: DataTypes.STRING,  allowNull: false },
+      age:            { type: DataTypes.INTEGER, allowNull: true },
       sex:            { type: DataTypes.ENUM(Object.values(SEX)), allowNull: false },
       province:       { type: DataTypes.STRING,  allowNull: false },
       lab:            { type: DataTypes.STRING,  allowNull: false },
@@ -41,12 +41,31 @@ module.exports = (sequelize, DataTypes) => {
         lab:            i.submitting_lab,
         data:           sequencesByFilepath[i.filename],
       }
+
+      /* Row validation */
       Object.keys(row).forEach(key => {
-        if (row[key] === undefined) {
-          console.log(row)
-          throw new Error(`Missing "${key}" for row ${n} (${i.filename})`)
+        const value =
+          typeof row[key] === 'string' ?
+            row[key].trim() :
+            row[key]
+        switch (key) {
+          case 'age': {
+            if (value === 'Unknown') {
+              row[key] = null
+              return
+            }
+            if (!/^\d+$/.test(value))
+              throw new Error(`Invalid value ("${value}") for "age", row ${n} (${i.filename})`)
+            row[key] = parseInt(value, 10)
+            return
+          }
+          default: {
+            if (value === undefined || value === '')
+              throw new Error(`Missing "${key}" for row ${n} (${i.filename})`)
+          }
         }
       })
+
       return row
     })
 

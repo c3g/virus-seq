@@ -14,6 +14,7 @@ export default function Submit() {
     const form = ev.target
     const metadata = form.elements.metadata.files[0]
     const sequences = form.elements.sequences.files[0]
+    setMessage(undefined)
     dispatch(submit(metadata, sequences))
     .then(results => {
       if (results) {
