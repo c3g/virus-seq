@@ -25,14 +25,14 @@ export default function Sequences() {
           <tr>
             <td>ID</td>
             <td>Strain</td>
-            <td>Collection Date</td>
             <td>Age</td>
             <td>Sex</td>
             <td>Province</td>
             <td>Lab</td>
-            <td>Data (size)</td>
+            <td>Collection Date</td>
             <td>Upload</td>
             {isAdmin && <td>User</td>}
+            <td>Data (size)</td>
           </tr>
         </thead>
         <tbody>
@@ -40,15 +40,15 @@ export default function Sequences() {
             <tr key={sequence.id}>
               <td>{sequence.id}</td>
               <td>{sequence.strain}</td>
-              <td>{safeFormat(sequence.collectionDate)}</td>
               <td>{sequence.age}</td>
               <td>{sequence.sex}</td>
               <td>{sequence.province}</td>
               <td>{sequence.lab}</td>
-              <td>{sequence.data}</td>
+              <td>{safeFormat(sequence.collectionDate)}</td>
               <td>{renderUpload(uploadsById[sequence.uploadId])}</td>
               {isAdmin &&
                 <td>{usersById[uploadsById[sequence.uploadId].userId].email}</td>}
+              <td>{sequence.data}</td>
             </tr>
           )}
         </tbody>
