@@ -58,6 +58,7 @@ export default function Submit() {
             Name for this upload
           </div>
         </div>
+        <br/>
 
         <div className={styles.row}>
           <div>
@@ -78,6 +79,8 @@ export default function Submit() {
             </ul>
           </div>
         </div>
+        <br/>
+
         <div className={styles.row}>
           <div>
             <label htmlFor='sequences'>Sequences</label>
@@ -91,13 +94,16 @@ export default function Submit() {
           </div>
           <div>
             Note: Either a zip or fasta file.
+            <br/>
             For a zip file, the metadata file must contain the <code>"filename"</code>
             column that points to the correct sequence inside the zip.
+            <br/>
             For a fasta file, the metadata file <code>"strain"</code> column must
             match the description of a sequence in the fasta file. The strain must
-            be a series of non-space characters such as <code>"Canada/Qc-L00210314/2020"</code>.
+            be a series of non-space characters such as <code>Canada/Qc-L00210314/2020</code>.
             The description may contain additional data after the strain identifier,
-            such as <code>"{'>'}Canada/Qc-L00210314/2020 seq_method:ONT_ARTIC|assemb_method:bcftools|snv_call_method:nanopolish"</code>
+            such as<br/>
+            <code>{'>'}Canada/Qc-L00210314/2020 seq_method:ONT_ARTIC|assemb_method:bcftools</code>
           </div>
         </div>
 
