@@ -1,0 +1,9 @@
+{
+    "name": "virus-seq",
+    "private": true,
+    "version": "0.1.0",
+    "scripts": {
+        "build": "cd frontend && npm run build && cd .. && rm -rf backend/public/* && cp frontend/build/* backend/public",
+        "nop": "true"
+    }
+}
