@@ -3,6 +3,7 @@ import logger from 'redux-logger'
 
 import auth, { isLoggedIn } from './auth'
 import sequence from './sequence'
+import upload from './upload'
 import user from './user'
 
 // TODO: implement this
@@ -15,6 +16,7 @@ const store = configureStore({
   reducer: {
     auth,
     sequence,
+    upload,
     user,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger),

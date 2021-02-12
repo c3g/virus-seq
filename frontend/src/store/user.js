@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { indexBy, prop } from 'rambda'
 import errorToJSON from '../helpers/errorToJSON'
 import api from '../api'
 
@@ -8,6 +9,7 @@ export const slice = createSlice({
     isLoading: false,
     isLoaded: false,
     list: [],
+    byId: {},
     error: undefined,
   },
   reducers: {
@@ -19,6 +21,7 @@ export const slice = createSlice({
       state.isLoading = false
       state.isLoaded = true
       state.list = action.payload
+      state.byId = indexBy(prop('id'), state.list)
     },
     setError: (state, action) => {
       state.isLoading = false

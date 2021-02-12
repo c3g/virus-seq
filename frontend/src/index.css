@@ -85,33 +85,8 @@ fieldset {
   padding: 0.6rem 0.75rem 0.90rem;
 }
 
-
 textarea,
 input {
   border: 1px solid #bbb;
 }
 
-button {
-  position: relative;
-  background-color: #eee;
-  border: 1px solid #bbb;
-}
-button::after {
-  content: '';
-  position: absolute;
-  display: inline-block;
-  top: 0;
-  left: -1px;
-  width: calc(100% + 2px);
-  height: 100%;
-  border-bottom: 3px solid #ccc;
-}
-button:focus {
-  outline: none;
-}
-button:active {
-  transform: translateY(1px);
-}
-button:active::after {
-  border-bottom: 2px solid #ccc;
-}

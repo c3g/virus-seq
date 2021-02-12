@@ -24,7 +24,8 @@ const api = {
 
   sequence: {
     list: () => get('/sequence/list'),
-    submit: (metadata, sequences) => post('/sequence/submit', form({ metadata, sequences })),
+    submit: (name, metadata, sequences) =>
+      post('/sequence/submit', form({ name, metadata, sequences })),
   }
 }
 

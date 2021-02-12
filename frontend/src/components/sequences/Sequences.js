@@ -1,14 +1,11 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import { indexBy, prop } from 'rambda'
 import { format } from 'date-fns'
-import { USER_TYPE } from '../../constants'
 import styles from './Sequences.module.css'
 
 export default function Sequences() {
-  const isLoading = useSelector(s => s.sequence.isLoading)
-  const users = useSelector(s => s.user.list)
-  const usersByID = useMemo(() => indexBy(prop('id'), users), [users])
+  const usersById = useSelector(s => s.user.byId)
+  const uploadsById = useSelector(s => s.upload.byId)
   const sequences = useSelector(s => s.sequence.list)
   const error = useSelector(s => s.sequence.error)
   const isAdmin = useSelector(s => s.auth.user?.isAdmin)
@@ -34,6 +31,7 @@ export default function Sequences() {
             <td>Province</td>
             <td>Lab</td>
             <td>Data (size)</td>
+            <td>Upload</td>
             {isAdmin && <td>User</td>}
           </tr>
         </thead>
@@ -48,13 +46,22 @@ export default function Sequences() {
               <td>{sequence.province}</td>
               <td>{sequence.lab}</td>
               <td>{sequence.data}</td>
-              {isAdmin && <td>{usersByID[sequence.userId].email}</td>}
+              <td>{renderUpload(uploadsById[sequence.uploadId])}</td>
+              {isAdmin &&
+                <td>{usersById[uploadsById[sequence.uploadId].userId].email}</td>}
             </tr>
           )}
         </tbody>
       </table>
     </div>
   )
+}
+
+function renderUpload(upload) {
+  const { createdAt } = upload
+  const name = upload.name || `#${upload.id}`
+
+  return <span>{name} <small>({format(new Date(createdAt), 'd MMM yyyy')})</small></span>
 }
 
 function safeFormat(date) {

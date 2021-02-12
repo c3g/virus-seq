@@ -22,6 +22,7 @@ dependencies:
   passport-local: 1.0.0
   pg: 8.5.1
   pg-hstore: 2.3.3
+  rambda: 6.5.3
   sequelize: 6.5.0_pg-hstore@2.3.3+pg@8.5.1
   sequelize-cli: 6.2.0
   uuid: 2.0.3
@@ -1951,6 +1952,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-9854jld33wtQENp/fE5zujJHD1o=
+  /rambda/6.5.3:
+    dev: false
+    resolution:
+      integrity: sha512-2CAMX4isM2QVOybyiKCCXlopEYIwWMc5nx6SD2PTFEgN4DLMJXjrwjlVsNOisMGeL2+akojuZEF7LuSHb2NMsQ==
   /range-parser/1.0.3:
     dev: false
     engines:
@@ -2635,6 +2640,7 @@ specifiers:
   passport-local: ^1.0.0
   pg: ^8.5.1
   pg-hstore: ^2.3.3
+  rambda: ^6.5.3
   sequelize: ~6.5.0
   sequelize-cli: ~6.2.0
   should: ~2.1.0

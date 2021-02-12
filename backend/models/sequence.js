@@ -17,10 +17,10 @@ const getProvince = value =>
   value in PROVINCE_NAME ? PROVINCE_NAME[value] :
   value === 'Unknown' ? null : value
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes, models) => {
   const Sequence = sequelize.define('Sequence',
     {
-      userId:         { type: DataTypes.INTEGER, allowNull: false },
+      uploadId:       { type: DataTypes.INTEGER, allowNull: false },
       strain:         { type: DataTypes.STRING,  allowNull: false },
       collectionDate: { type: DataTypes.DATE,    allowNull: false },
       age:            { type: DataTypes.INTEGER, allowNull: true },
@@ -35,16 +35,15 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   // Static methods
-  Sequence.ingest = async function(userId, metadata, sequences) {
+  Sequence.ingest = async function(userId, name, metadataFile, sequencesFile) {
     // throw new Error('unimplemented')
     const [items, sequencesByFilepath] = await Promise.all([
-      readMetadata(metadata),
-      readSequences(sequences),
+      readMetadata(metadataFile),
+      readSequences(sequencesFile),
     ])
 
     const rows = items.map((i, n) => {
       const row = {
-        userId:         userId,
         strain:         i.strain,
         collectionDate: i.date,
         age:            i.age,
@@ -87,7 +86,10 @@ module.exports = (sequelize, DataTypes) => {
       return row
     })
 
-    return Sequence.bulkCreate(rows)
+    const upload = await models.Upload.create({ userId, name })
+    rows.forEach(row => { row.uploadId = upload.id })
+    const sequences = await Sequence.bulkCreate(rows)
+    return { upload, sequences }
   }
 
   // Instance methods

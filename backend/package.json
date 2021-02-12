@@ -29,6 +29,7 @@
     "passport-local": "^1.0.0",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
+    "rambda": "^6.5.3",
     "sequelize": "~6.5.0",
     "sequelize-cli": "~6.2.0",
     "uuid": "^2.0.1"

@@ -6,3 +6,11 @@
 .form input {
   margin-right: 0.5rem;
 }
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+.row > * {
+  flex: 0 0 50%;
+}
