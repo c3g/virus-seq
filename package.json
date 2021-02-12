@@ -4,7 +4,7 @@
     "version": "0.1.0",
     "scripts": {
         "postinstall": "cd frontend && npm i && cd ../backend && npm i",
-        "build": "cd frontend && npm run build && cd .. && rm -rf backend/public/* && cp frontend/build/* backend/public",
+        "build": "cd frontend && npm run build && cd .. && rm -rf backend/public/* && cp -r frontend/build/* backend/public",
         "nop": "true"
     }
 }
