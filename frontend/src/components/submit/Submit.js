@@ -90,7 +90,7 @@ export default function Submit() {
               accept='.zip,.fa,.faa,.fasta'
               required
             />
-            <a href='/sequences-template.tsv' download><small>Download template</small></a>
+            <a href='/sequences-template.zip' download><small>Download template</small></a>
           </div>
           <div>
             Note: Either a zip or fasta file.
