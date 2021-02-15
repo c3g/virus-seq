@@ -1,11 +1,11 @@
 process.env.NODE_ENV = 'test';
 
-var DatabaseCleaner = require('database-cleaner');
-var databaseCleaner = new DatabaseCleaner("postgresql");
-var config = require('../config/config.json');
-var models  = require('../models');
-var connectionString = 'postgres://' + config['test']['username'] + '@' + config['test']['host']  + '/' + config['test']['database'];
-var pg = require('pg');
+const DatabaseCleaner = require('database-cleaner');
+const databaseCleaner = new DatabaseCleaner("postgresql");
+const config = require('../config/config.json');
+const models  = require('../models');
+const connectionString = 'postgres://' + config['test']['username'] + '@' + config['test']['host']  + '/' + config['test']['database'];
+const pg = require('pg');
 
 before(function(done) {
   models.sequelize.sync().then(function() {
@@ -20,10 +20,10 @@ afterEach(function (done) {
   });
 });
 
-exports.cleanUpDb = cleanUpDb = function(callback) {
-	pg.connect(connectionString, function(err, client, done) {
+exports.cleanUpDb = cleanUpDb = (callback) => {
+  pg.connect(connectionString, (err, client, done) => {
     databaseCleaner.clean(client, function(){
-      models.User.count().then(function(count){
+      models.User.count().then(count => {
         count.should.equal(0);
         done();
         callback();
