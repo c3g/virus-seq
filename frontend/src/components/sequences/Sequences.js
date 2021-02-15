@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { format } from 'date-fns'
 import { Table } from 'web-toolkit'
 import cx from 'clsx'
+import Page from '../page'
 import styles from './Sequences.module.css'
 
 export default function Sequences() {
@@ -73,7 +74,7 @@ export default function Sequences() {
   .filter(Boolean)
 
   return (
-    <div className={cx('background', styles.container)}>
+    <Page>
       <h2>Sequences</h2>
 
       {error &&
@@ -90,7 +91,7 @@ export default function Sequences() {
         filterable={true}
         style={{ height: 500 }}
       />
-    </div>
+    </Page>
   )
 }
 

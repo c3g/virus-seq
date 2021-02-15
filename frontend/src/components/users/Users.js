@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import isEmail from 'sane-email-validation'
 import errorToJSON from '../../helpers/errorToJSON'
 import { invite } from '../../store/user'
+import Page from '../page'
 import styles from './Users.module.css'
 
 export default function Users() {
@@ -11,7 +12,7 @@ export default function Users() {
   const error = useSelector(s => s.user.error)
 
   return (
-    <div>
+    <Page>
       <h2>Users</h2>
       <br/>
 
@@ -48,7 +49,7 @@ export default function Users() {
           )}
         </tbody>
       </table>
-    </div>
+    </Page>
   );
 }
 

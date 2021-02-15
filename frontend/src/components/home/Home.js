@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'web-toolkit'
+import Page from '../page'
 import styles from './Home.module.css'
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <Page className={styles.container} background={false}>
       <h1 className={styles.title}>VIRUS-SEQ PORTAL</h1>
       <p className={styles.subtitle}>
         Welcome to the virus-seq data submission portal. To submit
@@ -19,6 +20,6 @@ export default function Home() {
           </Button>
         </Link>
       </div>
-    </div>
+    </Page>
   );
 }

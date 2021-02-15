@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
 import isEmail from 'sane-email-validation'
 import { update } from '../../store/auth'
+import Page from '../page'
 import routes from '../routes'
 import styles from './Profile.module.css'
 
@@ -75,7 +76,7 @@ export default function Profile() {
   }
 
   return (
-    <div>
+    <Page>
       <h2>Profile</h2>
 
       {validationMessage &&
@@ -143,6 +144,6 @@ export default function Profile() {
           {isLoading ? 'Saving...' : 'Save'}
         </button>
       </form>
-    </div>
+    </Page>
   );
 }

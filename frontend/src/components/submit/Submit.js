@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Box, Button, Expander, Input, Label } from 'web-toolkit'
 import { StyledDropZone as DropZone } from 'react-drop-zone'
-import cx from 'clsx'
+import Page from '../page'
 import { submit } from '../../store/sequence'
 import styles from './Submit.module.css'
 
@@ -33,7 +33,7 @@ export default function Submit() {
   }
 
   return (
-    <div className={cx('background', styles.container)}>
+    <Page>
       <h2>Submit</h2>
       <form className={styles.form} onSubmit={onSubmit}>
         <table styles={styles.table}>
@@ -173,6 +173,6 @@ export default function Submit() {
           </div>
         }
       </form>
-    </div>
+    </Page>
   );
 }
