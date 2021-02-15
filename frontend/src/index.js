@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import 'normalize.css'
 // import 'minireset.css' // NOTE: resets all typographic styles
+import 'web-toolkit/lib/index.css'
+import 'react-drop-zone/dist/styles.css'
 import './index.css'
 import App from './components/App'
 import store from './store'

@@ -18,26 +18,28 @@ function App() {
       <div className='App'>
         <Navbar />
 
-        <Switch>
-          {routes.list.map(r =>
-            <Route
-              key={r.path}
-              path={r.path}
-              render={() => {
-                const result = r.if?.(user)
-                if (result) {
-                  // Avoid redirect while checking if user is already
-                  // logged in on page load.
-                  if (!isLoading)
-                    return result
-                  // FIXME: render loading indicator
-                  return null
-                }
-                return r.render()
-              }}
-            />
-          )}
-        </Switch>
+        <div className='App__content'>
+          <Switch>
+            {routes.list.map(r =>
+              <Route
+                key={r.path}
+                path={r.path}
+                render={() => {
+                  const result = r.if?.(user)
+                  if (result) {
+                    // Avoid redirect while checking if user is already
+                    // logged in on page load.
+                    if (!isLoading)
+                      return result
+                    // FIXME: render loading indicator
+                    return null
+                  }
+                  return r.render()
+                }}
+              />
+            )}
+          </Switch>
+        </div>
       </div>
     </Router>
   );

@@ -15,12 +15,14 @@
     "rambda": "^6.5.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-drop-zone": "^4.2.3",
     "react-redux": "^7.1.3",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
     "redux-logger": "^3.0.6",
-    "sane-email-validation": "^3.0.1"
+    "sane-email-validation": "^3.0.1",
+    "web-toolkit": "0.3.2"
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",

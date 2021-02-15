@@ -1,6 +1,12 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
+import {
+  Box,
+  Button,
+  Input,
+} from 'web-toolkit'
+import cx from 'clsx'
 import { login } from '../../store/auth'
 import routes from '../routes'
 import styles from './Login.module.css'
@@ -21,25 +27,37 @@ export default function Login() {
   }
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className={cx('background', styles.container)}>
       <form className={styles.form} onSubmit={onSubmit}>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <input id='email' type='text' />
-        </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <input id='password' type='password' />
-        </div>
-        <button disabled={isLoading}>
-          {isLoading ? 'Logging In...' : 'Login'}
-        </button> <Link to={routes.byName.forgot}><small>Forgot password?</small></Link>
-        {error &&
-          <div>
-            {error.message}
-          </div>
-        }
+        <label className='sr-only' htmlFor='email'>Email</label>
+        <label className='sr-only' htmlFor='password'>Password</label>
+
+        <Box vertical>
+          <Box vertical compact className='linked' style={{ minWidth: 130 }}>
+            <Input
+              size='huge'
+              id='email'
+              type='text'
+              placeholder='Email'
+            />
+            <Input
+              size='huge'
+              id='password'
+              type='password'
+              placeholder='Password'
+            />
+          </Box>
+
+          <Button size='huge' disabled={isLoading}>
+            {isLoading ? 'Logging In...' : 'Login'}
+          </Button> <Link to={routes.byName.forgot}><small>Forgot password?</small></Link>
+
+          {error &&
+            <div>
+              {error.message}
+            </div>
+          }
+        </Box>
       </form>
     </div>
   );

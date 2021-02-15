@@ -1,6 +1,10 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
+import {
+  Button,
+  HeaderBar,
+} from 'web-toolkit'
 import logo from '../../assets/virus.svg'
 import Icon from '../Icon'
 import { logout } from '../../store/auth'
@@ -13,38 +17,39 @@ export default function Navbar() {
   const dispatch = useDispatch()
 
   return (
-    <nav className={styles.navbar}>
+    <HeaderBar titlebar className={styles.navbar}>
       <img src={logo} className={styles.logo} />
-      <div className={styles.links}>
-        <NavbarLink to='/'>Home</NavbarLink>
-        {process.env.NODE_ENV === 'development' &&
-          <NavbarLink to='/development'>Dev</NavbarLink>
-        }
-        <div className={styles.separator} />
-        {isLoggedIn &&
-          <>
-            <NavbarLink to='/user/submit'>Submit Data</NavbarLink>
-            <NavbarLink to='/user/sequences'>Past Submissions</NavbarLink>
-          </>
-        }
-        {isAdmin &&
-          <NavbarLink to='/admin/users'>Users</NavbarLink>
-        }
-        {isLoggedIn &&
-          <>
-            <NavbarLink to='/user/profile'>
-              <Icon name='user' /> {user.firstName} {user.lastName}
-            </NavbarLink>
-            <button onClick={() => dispatch(logout())}>
-              Logout
-            </button>
-          </>
-        }
-        {!isLoggedIn &&
-          <NavbarLink to='/login'>Login</NavbarLink>
-        }
+      <div className={styles.title}>
+        VIRUS-SEQ
       </div>
-    </nav>
+      <NavbarLink to='/'>Home</NavbarLink>
+      {process.env.NODE_ENV === 'development' &&
+        <NavbarLink to='/development'>Dev</NavbarLink>
+      }
+      <div className={styles.separator} />
+      {isLoggedIn &&
+        <>
+          <NavbarLink to='/user/submit'>Submit Data</NavbarLink>
+          <NavbarLink to='/user/sequences'>Past Submissions</NavbarLink>
+        </>
+      }
+      {isAdmin &&
+        <NavbarLink to='/admin/users'>Users</NavbarLink>
+      }
+      {!isLoggedIn &&
+        <NavbarLink to='/login'>Login</NavbarLink>
+      }
+      {isLoggedIn &&
+        <>
+          <NavbarLink to='/user/profile'>
+            <Icon name='user' /> {user.firstName} {user.lastName}
+          </NavbarLink>
+          <Button size='small' onClick={() => dispatch(logout())}>
+            Logout
+          </Button>
+        </>
+      }
+    </HeaderBar>
   )
 }
 

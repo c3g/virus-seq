@@ -1,13 +1,15 @@
 
 .navbar {
-  position: relative;
-  margin-bottom: 1rem;
+  padding: 0 3rem;
+}
+
+.title {
+  font-weight: bold;
 }
 
 .logo {
-  position: absolute;
-  height: 1.5rem;
-  left:  -2rem;
+  height: 1.3rem;
+  margin-right: 0.5rem !important;
 }
 
 .links {

@@ -1,4 +1,15 @@
 
+.container {
+  padding: 1rem 3rem;
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
 .form label {
   display: inline-block;
   width: 6rem;
@@ -7,11 +18,26 @@
   margin-right: 0.5rem;
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
+.inputRow > td {
+  padding-bottom: 2rem;
 }
-.row > * {
-  flex: 0 0 50%;
-  max-width: 50%;
+.inputRow > td {
+  vertical-align: top;
+}
+.inputRow > td:first-child {
+  padding-right: 2rem;
+  min-width: 350px;
+}
+.inputRow > td:nth-child(2) {
+  color: #444;
+}
+
+.descriptions {
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+.descriptions td {
+  vertical-align: top;
+  border: 1px solid #aaa;
+  padding: 2px 6px;
 }

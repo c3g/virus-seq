@@ -1,12 +1,18 @@
 
+.container {
+  padding: 3rem;
+}
+
 .title {
+  margin-top: 0;
 }
 
 .subtitle {
-  font-size: 2rem;
+  color: #666;
+  font-size: 1.8rem;
   font-weight: 300;
-  line-height: 2.8rem;
-  margin-bottom: 4rem;
+  line-height: 2.6rem;
+  margin-bottom: 2rem;
 }
 
 .mainAction {
@@ -14,4 +20,8 @@
   font-size:   4rem;
   line-height: 4rem;
   font-weight: 500;
+}
+
+.link {
+  text-decoration: none;
 }

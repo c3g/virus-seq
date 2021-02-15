@@ -1,3 +1,9 @@
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -19,57 +25,6 @@ code {
 }
 
 
-body {
-  line-height: 22px;
-  font-size: 16px;
-}
-p {
-  margin: 0 0 1rem;
-}
-p.large {
-  opacity: 0.8;
-  line-height: 26px;
-  font-size: 20px;
-  font-weight: 400;
-}
-p.hero {
-  opacity: 0.7;
-  line-height: 32px;
-  font-size: 24px;
-  font-weight: 300;
-}
-
-h1 {
-  font-size: 4rem;
-  line-height: 4rem;
-  margin: 2rem 0;
-}
-h2 {
-  font-size: 2rem;
-  line-height: 2rem;
-  margin: 0 0 1rem;
-}
-h3 {
-  font-size: 1.1rem;
-  line-height: 1.1rem;
-  margin: 0 0 1rem;
-}
-h4 {
-  font-size:   1rem;
-  line-height: 1rem;
-  margin: 0 0 1rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #bbb;
-}
-h5,
-h6 {
-  /* font-size:   1rem; */
-  /* line-height: 1rem; */
-  margin: 0 0 1rem;
-}
-
 legend {
   font-size:   0.8rem;
   line-height: 0.8rem;
@@ -90,3 +45,8 @@ input {
   border: 1px solid #bbb;
 }
 
+
+.DropZone {
+  color: #cdc7c2;
+  border-color: #cdc7c2;
+}
