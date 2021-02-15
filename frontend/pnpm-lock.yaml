@@ -11,7 +11,7 @@ dependencies:
   rambda: 6.5.3
   react: 17.0.1
   react-dom: 17.0.1_react@17.0.1
-  react-drop-zone: 4.2.3_react@17.0.1
+  react-drop-zone: 4.3.0_react-dom@17.0.1+react@17.0.1
   react-redux: 7.2.2_react-dom@17.0.1+react@17.0.1
   react-router: 5.2.0_react@17.0.1
   react-router-dom: 5.2.0_react@17.0.1
@@ -10434,14 +10434,16 @@ packages:
       react: 17.0.1
     resolution:
       integrity: sha512-6eV150oJZ9U2t9svnsspTMrWNyHc6chX0KzDeAOXftRa8bNeOKTTfCJ7KorIwenkHd2xqVTBTCZd79yk/lx/Ug==
-  /react-drop-zone/4.2.3_react@17.0.1:
+  /react-drop-zone/4.3.0_react-dom@17.0.1+react@17.0.1:
     dependencies:
       react: 17.0.1
+      react-dom: 17.0.1_react@17.0.1
     dev: false
     peerDependencies:
       react: '>=16.8.0'
+      react-dom: '>=16.8.0'
     resolution:
-      integrity: sha512-XMa62l1KV1puFjuMnU4KHOy6t5P916d4xPsefGdqfy8CEHhHwscDz1SCgypsZgQV/pKWavYoKiKayiQkb4dQ0A==
+      integrity: sha512-y+ikZoIHDzBGVm9+C4JV1/R2AZJffh6awWnD9kygIxH0FgOrw/XPA9xwAfeoi1/sn7bD+EehuGUNqgYltLFsYw==
   /react-error-overlay/6.0.9:
     dev: false
     resolution:
@@ -13315,7 +13317,7 @@ specifiers:
   rambda: ^6.5.3
   react: ^17.0.1
   react-dom: ^17.0.1
-  react-drop-zone: ^4.2.3
+  react-drop-zone: ^4.3.0
   react-redux: ^7.1.3
   react-router: ^5.2.0
   react-router-dom: ^5.2.0
