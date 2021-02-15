@@ -13,20 +13,20 @@ export default function Submit() {
   const error = useSelector(s => s.sequence.error)
   const dispatch = useDispatch()
   const [message, setMessage] = useState(undefined)
+  const [metadata, setMetadata] = useState(undefined)
+  const [sequences, setSequences] = useState(undefined)
 
   const onSubmit = ev => {
     ev.preventDefault()
     const form = ev.target
     const name = form.elements.name.value || null
-    const metadata = form.elements.metadata.files[0]
-    const sequences = form.elements.sequences.files[0]
     setMessage(undefined)
     dispatch(submit(name, metadata, sequences))
     .then(results => {
       if (results) {
         form.elements.name.value = ''
-        form.elements.metadata.value = []
-        form.elements.sequences.value = []
+        setMetadata(undefined)
+        setSequences(undefined)
         setMessage('Data has been successfully submitted')
       }
     })
@@ -64,9 +64,11 @@ export default function Submit() {
             <tr className={styles.inputRow}>
               <td>
                 <DropZone
+                  required
                   id='metadata'
                   accept='.csv,.tsv'
-                  required
+                  children={metadata?.name}
+                  onDrop={setMetadata}
                 />
                 <br/>
                 <a href='/metadata-template.tsv' download><small>Download template</small></a>
@@ -130,9 +132,11 @@ export default function Submit() {
             <tr className={styles.inputRow}>
               <td>
                 <DropZone
+                  required
                   id='sequences'
                   accept='.zip,.fa,.faa,.fasta'
-                  required
+                  children={sequences?.name}
+                  onDrop={setSequences}
                 />
                 <br/>
                 <Box vertical compact>
@@ -160,11 +164,10 @@ export default function Submit() {
         <Button size='large' primary disabled={isLoading}>
           {isLoading ? 'Submitting...' : 'Submit'}
         </Button>
-
         {message &&
-          <div>
+          <Label success style={{ marginLeft: '1rem' }}>
             {message}
-          </div>
+          </Label>
         }
 
         {error &&
