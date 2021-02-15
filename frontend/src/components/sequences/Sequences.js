@@ -1,6 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { format } from 'date-fns'
+import { Table } from 'web-toolkit'
+import cx from 'clsx'
 import styles from './Sequences.module.css'
 
 export default function Sequences() {
@@ -10,8 +12,68 @@ export default function Sequences() {
   const error = useSelector(s => s.sequence.error)
   const isAdmin = useSelector(s => s.auth.user?.isAdmin)
 
+  const columns = [
+    {
+      Header: 'ID',
+      accessor: s => s.id,
+      width: 30,
+      disableFilters: true,
+    },
+    {
+      Header: 'Strain',
+      accessor: 'strain',
+      disableFilters: true,
+    },
+    {
+      Header: 'Age',
+      accessor: 'age',
+      width: 40,
+      disableFilters: true,
+    },
+    {
+      Header: 'Sex',
+      accessor: 'sex',
+      width: 40,
+      disableFilters: true,
+    },
+    {
+      Header: 'Province',
+      accessor: 'province',
+      width: 40,
+      disableFilters: true,
+    },
+    {
+      Header: 'Lab',
+      accessor: 'lab',
+      width: 80,
+      disableFilters: true,
+    },
+    {
+      Header: 'Collection Date',
+      accessor: s => safeFormat(s.collectionDate),
+      disableFilters: true,
+    },
+    {
+      Header: 'Upload',
+      accessor: s => renderUpload(uploadsById[s.uploadId]),
+      disableFilters: true,
+    },
+    !isAdmin ? null :
+      {
+        Header: 'User',
+        accessor: s => usersById[uploadsById[s.uploadId].userId].email,
+        disableFilters: true,
+      },
+    {
+      Header: 'Data (size)',
+      accessor: 'data',
+      disableFilters: true,
+    },
+  ]
+  .filter(Boolean)
+
   return (
-    <div>
+    <div className={cx('background', styles.container)}>
       <h2>Sequences</h2>
 
       {error &&
@@ -20,39 +82,14 @@ export default function Sequences() {
         </div>
       }
 
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <td>ID</td>
-            <td>Strain</td>
-            <td>Age</td>
-            <td>Sex</td>
-            <td>Province</td>
-            <td>Lab</td>
-            <td>Collection Date</td>
-            <td>Upload</td>
-            {isAdmin && <td>User</td>}
-            <td>Data (size)</td>
-          </tr>
-        </thead>
-        <tbody>
-          {sequences.map(sequence =>
-            <tr key={sequence.id}>
-              <td>{sequence.id}</td>
-              <td>{sequence.strain}</td>
-              <td>{sequence.age}</td>
-              <td>{sequence.sex}</td>
-              <td>{sequence.province}</td>
-              <td>{sequence.lab}</td>
-              <td>{safeFormat(sequence.collectionDate)}</td>
-              <td>{renderUpload(uploadsById[sequence.uploadId])}</td>
-              {isAdmin &&
-                <td>{usersById[uploadsById[sequence.uploadId].userId].email}</td>}
-              <td>{sequence.data}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <Table
+        key={sequences.length}
+        columns={columns}
+        data={sequences}
+        sortable={true}
+        filterable={true}
+        style={{ height: 500 }}
+      />
     </div>
   )
 }
