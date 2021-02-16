@@ -48,7 +48,7 @@ export default function Login() {
             />
           </Box>
 
-          <Button size='huge' disabled={isLoading}>
+          <Button size='huge' disabled={isLoading} type='submit'>
             {isLoading ? 'Logging In...' : 'Login'}
           </Button> <Link to={routes.byName.forgot}><small>Forgot password?</small></Link>
 

@@ -161,7 +161,7 @@ export default function Submit() {
           </tbody>
         </table>
 
-        <Button size='large' primary disabled={isLoading}>
+        <Button size='large' primary disabled={isLoading} type='submit'>
           {isLoading ? 'Submitting...' : 'Submit'}
         </Button>
         {message &&
