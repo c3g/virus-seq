@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Label } from 'web-toolkit'
+import { Box, Label } from 'web-toolkit'
 import Page from '../page'
 import EditCredentials from './EditCredentials'
 import EditDetails from './EditDetails'
@@ -28,8 +28,10 @@ export default function Profile() {
         </Label>
       }
 
-      <EditCredentials />
-      <EditDetails />
+      <Box vertical align='start'>
+        <EditCredentials />
+        <EditDetails />
+      </Box>
     </Page>
   );
 }
