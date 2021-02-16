@@ -1,7 +1,11 @@
 
-.form label,
-.form input,
-.form button {
+.form {
   display: inline-block;
-  margin-right: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.form > * {
+  margin-top: 4em;
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { Box, Button, Input, Label } from 'web-toolkit'
 import { resetPassword, changePassword } from '../../store/auth'
 import routes from '../routes'
 import Page from '../page'
@@ -15,7 +16,6 @@ export default function Forgot() {
 
   return (
     <Page>
-      <h2>Forgot Password</h2>
       {hasData ?
         <ChangePassword email={email} token={token} /> :
         <ResetPassword />
@@ -44,17 +44,24 @@ function ChangePassword({ email, token }) {
   return (
     <div>
       <form className={styles.form} onSubmit={onSubmit}>
-        <div>
+        <Box vertical>
+          <h1>Change Passowrd</h1>
           <label htmlFor='password'>Password</label>
-          <input id='password' type='password' required disabled={isLoading}/>
-          <button disabled={isLoading}>
-            {isLoading ? 'Updating...' : 'Reset Password'}
-          </button>
-        </div>
+          <Input
+            required
+            id='password'
+            type='password'
+            size='huge'
+            disabled={isLoading}
+          />
+          <Button size='huge' disabled={isLoading} type='submit'>
+            {isLoading ? 'Updating...' : 'Set New Password'}
+          </Button>
+        </Box>
         {error &&
-          <div>
+          <Label error>
             {error.message}
-          </div>
+          </Label>
         }
       </form>
     </div>
@@ -75,22 +82,31 @@ function ResetPassword() {
     .then(() => setDidReset(true))
   }
 
-  if (didReset)
-    return (
-      <div>
-        Sent password reset link, check your email inbox.
-      </div>
-    )
-
   return (
     <form className={styles.form} onSubmit={onSubmit}>
-      <div>
-        <label htmlFor='email'>Email</label>
-        <input id='email' type='email' required />
-        <button disabled={isLoading}>
-          {isLoading ? 'Sending...' : 'Reset Password'}
-        </button>
-      </div>
+      <Box vertical>
+        <h1>Forgot Password?</h1>
+        {didReset &&
+          <div>
+            Password reset link sent.
+          </div>
+        }
+        {!didReset &&
+          <>
+            <label htmlFor='email' className='sr-only'>Email</label>
+            <Input
+              id='email'
+              type='email'
+              size='huge'
+              placeholder='Email'
+              required
+            />
+            <Button size='huge' disabled={isLoading} type='submit'>
+              {isLoading ? 'Sending...' : 'Reset Password'}
+            </Button>
+          </>
+        }
+      </Box>
       {error &&
         <div>
           {error.message}
