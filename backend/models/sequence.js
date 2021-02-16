@@ -63,13 +63,13 @@ module.exports = (sequelize, DataTypes, models) => {
               return
             }
             if (!/^\d+$/.test(row.age))
-              throw new Error(`Invalid value ("${row.age}") for "age", row ${n} (${i.filename})`)
+              throw new Error(`Invalid value ("${row.age}") for "age", row ${n + 2} (${i.filename})`)
             row.age = parseInt(row.age, 10)
             return
           }
           case 'collectionDate': {
             if (Number.isNaN(Date.parse(row.collectionDate)))
-              throw new Error(`Invalid value ("${row.collectionDate}") for "date", row ${n} (${i.filename})`)
+              throw new Error(`Invalid value ("${row.collectionDate}") for "date", row ${n + 2} (${i.filename})`)
             return
           }
           default: {
@@ -78,7 +78,7 @@ module.exports = (sequelize, DataTypes, models) => {
                 row[key].trim() :
                 row[key]
             if (value === undefined || value === '')
-              throw new Error(`Missing "${key}" for row ${n} (${i.filename})`)
+              throw new Error(`Missing "${key}" for row ${n + 2} (${i.filename})`)
           }
         }
       })
