@@ -17,7 +17,7 @@ export default function InviteUser() {
     const email = element.value
 
     if (!isEmail(email)) {
-      return setState({ isLoading: false, error: 'Not a valid email' })
+      return setState({ isLoading: false, error: new Error('Not a valid email') })
     }
 
     setState({ isLoading: true, error: undefined })
@@ -32,21 +32,25 @@ export default function InviteUser() {
   return (
     <form className={styles.inviteForm} onSubmit={onInvite}>
       <label htmlFor='email' className='sr-only'>Email</label>
-      <Input.Group>
-        <Input
-          id='email'
-          type='email'
-          placeholder='Invite new user (email)'
-          disabled={state.isLoading}
-        />
-        <Button loading={state.isLoading} type='submit'>
-          Send Invite
-        </Button>
-      </Input.Group> {state.error &&
-        <Label error>
-          {state.error.message}
-        </Label>
-      }
+      <Box horizontal align>
+        <Input.Group>
+          <Input
+            id='email'
+            type='email'
+            placeholder='Invite new user (email)'
+            disabled={state.isLoading}
+            error={Boolean(state.error)}
+          />
+          <Button loading={state.isLoading} type='submit'>
+            Send Invite
+          </Button>
+        </Input.Group>
+        {state.error &&
+          <Label danger>
+            {state.error.message}
+          </Label>
+        }
+      </Box>
     </form>
   )
 }

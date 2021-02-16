@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import isEmail from 'sane-email-validation'
 import { signup } from '../../store/auth'
 import routes from '../routes'

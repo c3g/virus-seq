@@ -53,22 +53,27 @@ module.exports = (sequelize, DataTypes) => {
       else
         throw new Error('User already exists')
     }
-    user = await User.create({ email })
-    await sendEmail({
-      to: email,
-      subject: 'Invitation: virus-seq portal',
-      html: `
-        Hi,<br/>
-        <br/>
-        You have been invited to join the virus-seq portal.<br/>
-        <br/>
-        <a href="${config.server}/signup?token=${user.token}&email=${encodeURIComponent(email)}">Sign Up</a><br/>
-        <br/>
-        Regards,<br/>
-        <br/>
-        The virus-seq team
-      `
-    })
+    user = User.create({ email })
+    try {
+      await sendEmail({
+        to: email,
+        subject: 'Invitation: virus-seq portal',
+        html: `
+          Hi,<br/>
+          <br/>
+          You have been invited to join the virus-seq portal.<br/>
+          <br/>
+          <a href="${config.server}/signup?token=${user.token}&email=${encodeURIComponent(email)}">Sign Up</a><br/>
+          <br/>
+          Regards,<br/>
+          <br/>
+          The virus-seq team
+        `
+      })
+    } catch (err) {
+      await User.destroy({ where: { email }, force: true })
+      throw err
+    }
     return user
   }
 

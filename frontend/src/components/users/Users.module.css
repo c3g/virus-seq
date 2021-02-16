@@ -10,13 +10,3 @@
 .inviteContainer {
   margin-bottom: 2rem;
 }
-
-.inviteForm {
-  display: flex;
-  flex-direction: row;
-}
-.inviteForm label,
-.inviteForm input,
-.inviteForm button {
-  margin-right: 0.5rem;
-}
