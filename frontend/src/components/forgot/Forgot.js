@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { resetPassword, changePassword } from '../../store/auth'
 import routes from '../routes'
+import Page from '../page'
 import styles from './Forgot.module.css'
 
 export default function Forgot() {
@@ -13,13 +14,13 @@ export default function Forgot() {
   const hasData = Boolean(email && token)
 
   return (
-    <div>
+    <Page>
       <h2>Forgot Password</h2>
       {hasData ?
         <ChangePassword email={email} token={token} /> :
         <ResetPassword />
       }
-    </div>
+    </Page>
   );
 }
 
