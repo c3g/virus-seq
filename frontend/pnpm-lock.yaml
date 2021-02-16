@@ -18,7 +18,7 @@ dependencies:
   react-scripts: 4.0.2_react@17.0.1
   redux-logger: 3.0.6
   sane-email-validation: 3.0.1
-  web-toolkit: 0.4.1_react-dom@17.0.1+react@17.0.1
+  web-toolkit: 0.5.0_react-dom@17.0.1+react@17.0.1
 lockfileVersion: 5.2
 packages:
   /@babel/code-frame/7.10.4:
@@ -12764,7 +12764,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-O84QOnr0icsbFGLS0O3bI5FswxzRr8/gHwWkDlQFskhSPryQXvrTMxjxGP4+iWYoauLoBvfDpkrOauZ+0iZpDA==
-  /web-toolkit/0.4.1_react-dom@17.0.1+react@17.0.1:
+  /web-toolkit/0.5.0_react-dom@17.0.1+react@17.0.1:
     dependencies:
       '@babel/runtime': 7.12.13
       '@popperjs/core': 2.6.0
@@ -12789,7 +12789,7 @@ packages:
       react: ^17.0.1
       react-dom: ^17.0.1
     resolution:
-      integrity: sha512-Jqm9xFdVyUx2CvflNPoKif31a+KluZzgX5sy6d8nHZmO8kNCWtR4gCc+ciCSSaCA64evyv/YJAfcSmH2KjcKYQ==
+      integrity: sha512-Ja7XDDdnehRFjPZNbQV5Wg6mN5iA9CFWlOmdX/B3673V8AgzbGpt4rjwxP6Nv9GkM/QZ28IlSEmqg5K6pjzrAg==
   /webidl-conversions/5.0.0:
     dev: false
     engines:
@@ -13324,4 +13324,4 @@ specifiers:
   react-scripts: 4.0.2
   redux-logger: ^3.0.6
   sane-email-validation: ^3.0.1
-  web-toolkit: 0.4.1
+  web-toolkit: 0.5.0
