@@ -25,7 +25,7 @@ router.use('/list', (req, res) => {
   Sequence.findAll(condition)
   .then(sequences =>
     Upload.findAll({ where: { 
-      id: { [Op.in]: uniq(sequences.map(s => s.id)) }
+      id: { [Op.in]: uniq(sequences.map(s => s.uploadId)) }
     }})
     .then(uploads => ({
       sequences, uploads
