@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import isEmail from 'sane-email-validation'
-import errorToJSON from '../../helpers/errorToJSON'
-import { invite } from '../../store/user'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { Box, Button, Input, Label, Table } from 'web-toolkit'
 import Page from '../page'
+import InviteUser from './InviteUser'
 import styles from './Users.module.css'
 
 export default function Users() {
@@ -11,81 +10,34 @@ export default function Users() {
   const users = useSelector(s => s.user.list)
   const error = useSelector(s => s.user.error)
 
+  const columns = [
+    { Header: 'ID', accessor: user => user.id },
+    { Header: 'Name', accessor: user => user.firstName },
+    { Header: 'Email', accessor: user => user.email },
+    { Header: 'Lab', accessor: user => user.lab },
+    { Header: 'Institution', accessor: user => user.institution },
+    { Header: 'Address', accessor: user => user.institutionAddress?.replace(/\n/g, ', ') },
+    { Header: 'Type', accessor: user => user.type },
+    { Header: 'Signed Up', accessor: user => String(user.password) },
+  ]
+
   return (
     <Page>
       <h2>Users</h2>
       <br/>
 
       <div className={styles.inviteContainer}>
-        <h3>Invite new user</h3>
-        <Invite />
+        <InviteUser />
       </div>
-      <br/>
 
-      <h3>List</h3>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Email</td>
-            <td>Lab</td>
-            <td>Institution</td>
-            <td>Address</td>
-            <td>Signed Up</td>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user =>
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.firstName} {user.lastName}</td>
-              <td>{user.email}</td>
-              <td>{user.lab}</td>
-              <td>{user.institution}</td>
-              <td>{user.institutionAddress?.replace(/\n/g, ', ')}</td>
-              <td>{String(user.password)}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <Table
+        key={users.length}
+        columns={columns}
+        data={users}
+        sortable={true}
+        filterable={true}
+        style={{ height: 500 }}
+      />
     </Page>
   );
 }
-
-function Invite() {
-  const dispatch = useDispatch()
-  const [state, setState] = useState({ isLoading: false, error: undefined })
-
-  const onInvite = ev => {
-    ev.preventDefault()
-    const element = ev.target.elements.email
-    const email = element.value
-
-    if (!isEmail(email)) {
-      return setState({ isLoading: false, error: 'Not a valid email' })
-    }
-
-    setState({ isLoading: true, error: undefined })
-    dispatch(invite(email))
-    .then(() => {
-      setState({ isLoading: false, error: undefined })
-      element.value = ''
-    })
-    .catch(err => setState({ isLoading: false, error: errorToJSON(err) }))
-  }
-
-  return (
-    <form className={styles.inviteForm} onSubmit={onInvite}>
-      <div>
-        <label htmlFor='email'>Email</label>
-        <input id='email' type='email' disabled={state.isLoading} />
-      </div>
-      <button disabled={state.isLoading}>
-        Invite
-      </button>
-      {state.error && state.error.message}
-    </form>
-  )
-}
-
