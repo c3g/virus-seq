@@ -9,7 +9,7 @@ const { isLoggedIn } = require('../helpers/auth')
 router.use('/', isLoggedIn)
 
 router.use('/submit', (req, res) => {
-  const { name } = req.body
+  const name = req.body.name || null
   const { metadata, sequences } = req.files
 
   Sequence.ingest(req.user.id, name, metadata, sequences)

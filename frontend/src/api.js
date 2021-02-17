@@ -147,6 +147,8 @@ function form(params) {
   const formData = new FormData()
   for (let key in params) {
     const value = params[key]
+    if (value === null || value === undefined)
+      continue
     formData.append(key, value)
   }
   return formData
