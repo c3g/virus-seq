@@ -3,11 +3,10 @@ const path = require('path');
 const clone = require('clone');
 const Sequelize = require('sequelize');
 const { DataTypes } = Sequelize
-
 const { USER_TYPE } = require('../constants')
-
 const basename = path.basename(module.filename);
 
+// Configuration
 const env = process.env.NODE_ENV || 'development';
 const config = clone(require('../config').database[env]);
 config.logging = env === 'development' ? console.log : false;
@@ -17,7 +16,6 @@ const sequelize = new Sequelize(
   config.password,
   config
 );
-
 
 // Exported models
 const models = {};
@@ -30,8 +28,13 @@ fs
   models[model.name] = model;
 });
 
+
+// Associations
+models.Sequence.belongsTo(models.Upload, { foreignKey: 'uploadId' })
+
+
 // Setup & initialize database
-(async () => {
+;(async () => {
   console.log('Sync start')
   try {
     await sequelize.sync()

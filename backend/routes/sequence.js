@@ -20,7 +20,13 @@ router.use('/submit', (req, res) => {
 router.use('/list', (req, res) => {
   const condition = req.user.isAdmin() ?
     undefined :
-    { where: { userId: req.user.id } }
+    {
+      include: {
+        model: Upload,
+        where: { userId: req.user.id },
+        attributes: ['id'],
+      },
+    }
 
   Sequence.findAll(condition)
   .then(sequences =>
