@@ -20,6 +20,8 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
+    "react-virtualized-auto-sizer": "^1.0.4",
+    "recharts": "^2.0.6",
     "redux-logger": "^3.0.6",
     "sane-email-validation": "^3.0.1",
     "web-toolkit": "0.5.2"
