@@ -2,11 +2,19 @@
 .form {
   display: inline-block;
 }
-.form label {
+
+.formRow > *:nth-child(1) {
   display: inline-block;
-  min-width: 5rem;
-  margin-right: 0.5rem;
+  width: 80px;
 }
-.form input {
-  margin-right: 0.5rem;
+.formRow > *:nth-child(2) {
+  display: inline-block;
+  width: 200px;
+}
+.formRow > *:nth-child(3) {
+  flex: 1 1;
+}
+
+.address textarea {
+  min-width: 300px;
 }

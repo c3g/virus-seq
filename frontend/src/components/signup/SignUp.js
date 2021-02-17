@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import isEmail from 'sane-email-validation'
+import { Box, Button, Input, Label, LevelBar, TextArea } from 'web-toolkit'
+import getPasswordLevel from '../../helpers/getPasswordLevel'
 import { signup } from '../../store/auth'
+import Page from '../page'
 import routes from '../routes'
 import styles from './SignUp.module.css'
 
@@ -22,6 +25,7 @@ export default function SignUp() {
   const isLoading = useSelector(s => s.auth.isLoading)
   const error = useSelector(s => s.auth.error)
   const dispatch = useDispatch()
+  const [password, setPassword] = useState('')
 
   const [validationMessage, setValidationMessage] = useState(undefined)
 
@@ -51,58 +55,101 @@ export default function SignUp() {
     })
   }
 
+  console.log(styles)
   return (
-    <div>
-      <h2>Sign Up</h2>
+    <Page center='horizontal'>
       <form className={styles.form} onSubmit={onSubmit}>
+        <h1>Sign Up</h1>
+
         <input id='token' type='hidden' value={searchParams.get('token')} />
-        <fieldset>
-          <legend>Credentials</legend>
-          <label htmlFor='email'>Email</label>
-          <input id='email' type='email' required defaultValue={searchParams.get('email')} />
-          <label htmlFor='password'>Password</label>
-          <input id='password' type='password' required minLength={6} />
-        </fieldset>
+        <Box vertical>
+          <fieldset>
+            <legend>Credentials</legend>
+            <Box vertical>
+              <Box horizontal align className={styles.formRow}>
+                <label htmlFor='email'>Email</label>
+                <Input id='email' type='email' required defaultValue={searchParams.get('email')} />
+              </Box>
+              <Box horizontal align className={styles.formRow}>
+                <label htmlFor='password'>Password</label>
+                <Input
+                  id='password'
+                  type='password'
+                  placeholder='Choose a strong password'
+                  required
+                  value={password}
+                  onChange={setPassword}
+                  minLength={6}
+                />
+                <LevelBar
+                  value={getPasswordLevel(password)}
+                />
+              </Box>
+            </Box>
+          </fieldset>
 
-        <fieldset>
-          <legend>Identification</legend>
-          <label htmlFor='firstName'>First Name</label>
-          <input id='firstName' type='text' required />
-          <label htmlFor='lastName'>Last Name</label>
-          <input id='lastName' type='text' required />
-        </fieldset>
+          <fieldset>
+            <legend>Identification</legend>
+            <Box horizontal align>
+              <label htmlFor='firstName'>First Name</label>
+              <Input id='firstName' type='text' required />
+              <label htmlFor='lastName'>Last Name</label>
+              <Input id='lastName' type='text' required />
+            </Box>
+          </fieldset>
 
-        <fieldset>
-          <legend>Organization</legend>
+          <fieldset>
+            <legend>Organization</legend>
 
-          <div>
-            <label htmlFor='lab'>Lab</label>
-            <input id='lab' type='text' required />
-          </div>
-          <div>
-            <label htmlFor='institution'>Institution</label>
-            <input id='institution' type='text' required />
-          </div>
-          <div>
-            <label htmlFor='institutionAddress'>Institution Address</label><br/>
-            <textarea id='institutionAddress' required />
-          </div>
-        </fieldset>
+            <Box vertical>
+              <Box horizontal align className={styles.formRow}>
+                <label htmlFor='lab'>Lab</label>
+                <Input
+                  id='lab'
+                  type='text'
+                  placeholder='Lab name'
+                  required
+                />
+              </Box>
+              <Box horizontal align className={styles.formRow}>
+                <label htmlFor='institution'>Institution</label>
+                <Input
+                  id='institution'
+                  type='text'
+                  placeholder='Institution name'
+                  required
+                />
+              </Box>
+              <div>
+                <label htmlFor='institutionAddress'>Institution Address</label><br/>
+                <TextArea
+                  id='institutionAddress'
+                  required
+                  className={styles.address}
+                />
+              </div>
+            </Box>
+          </fieldset>
 
-        <button disabled={isLoading}>
-          {isLoading ? 'Signing In...' : 'Sign Up'}
-        </button>
-        {validationMessage &&
-          <div>
-            {validationMessage}
-          </div>
-        }
-        {error &&
-          <div>
-            {error.message}
-          </div>
-        }
+          <Button
+            disabled={isLoading}
+            icon='mail-send'
+            type='submit'
+          >
+            {isLoading ? 'Signing In...' : 'Sign Up'}
+          </Button>
+          {validationMessage &&
+            <Label danger>
+              {validationMessage}
+            </Label>
+          }
+          {error &&
+            <Label danger>
+              {error.message}
+            </Label>
+          }
+        </Box>
       </form>
-    </div>
+    </Page>
   );
 }

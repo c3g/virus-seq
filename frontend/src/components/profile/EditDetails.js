@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Box, Button, Input, Label } from 'web-toolkit'
+import { Box, Button, Input, Label, TextArea } from 'web-toolkit'
 import { update } from '../../store/auth'
 import styles from './Profile.module.css'
 
@@ -80,7 +80,7 @@ export default function EditDetails() {
           </Box>
           <div>
             <label htmlFor='institutionAddress'>Institution Address</label><br/>
-            <textarea
+            <TextArea
               id='institutionAddress'
               required
               defaultValue={user.institutionAddress}
