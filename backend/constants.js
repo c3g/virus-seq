@@ -10,7 +10,6 @@ const USER_TYPE = {
 const SEX = {
   MALE: 'M',
   FEMALE: 'F',
-  UNKNOWN: 'Unknown',
 }
 
 const PROVINCE = {

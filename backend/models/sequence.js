@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes, models) => {
       strain:         { type: DataTypes.STRING,  allowNull: false },
       collectionDate: { type: DataTypes.DATE,    allowNull: false },
       age:            { type: DataTypes.INTEGER, allowNull: true },
-      sex:            { type: DataTypes.ENUM(Object.values(SEX)), allowNull: false },
+      sex:            { type: DataTypes.ENUM(Object.values(SEX)), allowNull: true },
       province:       { type: DataTypes.ENUM(PROVINCE_CODES), allowNull: true },
       lab:            { type: DataTypes.STRING,  allowNull: false },
       data:           { type: DataTypes.TEXT,    allowNull: false },
@@ -57,8 +57,14 @@ module.exports = (sequelize, DataTypes, models) => {
       /* Row validation */
       Object.keys(row).forEach(key => {
         switch (key) {
+          case 'sex': {
+            if (row.sex === '' || row.sex === 'Unknown') {
+              row.age = null
+            }
+            return
+          }
           case 'age': {
-            if (row.age === 'Unknown') {
+            if (row.age === '' || row.age === 'Unknown') {
               row.age = null
               return
             }
