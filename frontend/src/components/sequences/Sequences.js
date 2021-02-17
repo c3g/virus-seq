@@ -86,11 +86,13 @@ export default function Sequences() {
         </div>
       }
 
-      <Chart
-        className={styles.chart}
-        total={sequences.length}
-        data={provinceData}
-      />
+      {isAdmin &&
+        <Chart
+          className={styles.chart}
+          total={sequences.length}
+          data={provinceData}
+        />
+      }
       <Table
         key={sequences.length}
         columns={columns}
