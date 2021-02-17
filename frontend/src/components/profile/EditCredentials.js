@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import isEmail from 'sane-email-validation'
-import { Box, Button, Input, Label } from 'web-toolkit'
+import { Box, Button, Input, Label, LevelBar } from 'web-toolkit'
+import getPasswordLevel from '../../helpers/getPasswordLevel'
 import { update } from '../../store/auth'
 import styles from './Profile.module.css'
 
 export default function EditCredentials() {
   const [isEditing, setIsEditing] = useState(false)
+  const [password, setPassword] = useState('')
   const isLoading = useSelector(s => s.auth.isLoading)
   const user = useSelector(s => s.auth.user)
-  const error = useSelector(s => s.auth.error)
   const dispatch = useDispatch()
 
   const [validationMessage, setValidationMessage] = useState(undefined)
@@ -36,8 +37,14 @@ export default function EditCredentials() {
       password,
     }
 
+    if (data.email === user.email)
+      delete data.email
+
     if (!data.password)
       delete data.password
+
+    if (!data.email && !data.password)
+      return setIsEditing(false)
 
     dispatch(update(data))
     .then(ok => {
@@ -47,11 +54,11 @@ export default function EditCredentials() {
   }
 
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
+    <form className={styles.form} onSubmit={onSubmit} autocomplete='off'>
       <fieldset>
         <legend>Credentials</legend>
         <Box vertical>
-          <Box horizontal align>
+          <Box horizontal align className={styles.formRow}>
             <label htmlFor='email'>Email</label>
             <Input
               id='email'
@@ -61,17 +68,23 @@ export default function EditCredentials() {
               disabled={!isEditing}
             />
           </Box>
-          <Box horizontal align>
+          {/* Fake password input to disable auto-fill */}
+          <input id='password' type='password' name='fakepasswordremembered' style={{ display: 'none' }} />
+          <Box horizontal align className={styles.formRow}>
             <label htmlFor='password'>Password</label>
-            {/* Fake password input to disable auto-fill */}
-            <input id='password' type='password' name='fakepasswordremembered' style={{ display: 'none' }} />
             <Input
               id='realPassword'
               type='password'
               autoComplete='new-password'
+              aria-autocomplete='new-password'
               placeholder='(leave empty to keep)'
               minLength={6}
               disabled={!isEditing}
+              value={password}
+              onChange={setPassword}
+            />
+            <LevelBar
+              value={getPasswordLevel(password)}
             />
           </Box>
           {isEditing ?
@@ -79,6 +92,7 @@ export default function EditCredentials() {
               disabled={isLoading}
               type='submit'
               icon='document-save'
+              className={styles.submit}
             >
               {isLoading ? 'Saving...' : 'Save'}
             </Button>
@@ -87,6 +101,7 @@ export default function EditCredentials() {
               disabled={isLoading}
               type='button'
               icon='document-edit'
+              className={styles.submit}
               onClick={onEdit}
             >
               Edit

@@ -93,6 +93,7 @@ export default function EditDetails() {
               disabled={isLoading}
               type='submit'
               icon='document-save'
+              className={styles.submit}
             >
               {isLoading ? 'Saving...' : 'Save'}
             </Button>
@@ -101,6 +102,7 @@ export default function EditDetails() {
               disabled={isLoading}
               type='button'
               icon='document-edit'
+              className={styles.submit}
               onClick={onEdit}
             >
               Edit

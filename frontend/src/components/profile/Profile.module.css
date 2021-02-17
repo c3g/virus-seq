@@ -4,9 +4,24 @@
 }
 .form label {
   display: inline-block;
-  min-width: 5rem;
-  margin-right: 0.5rem;
+  min-width: 80px;
 }
-.form input {
-  margin-right: 0.5rem;
+
+.submit {
+  width: calc(280px + 1rem);
 }
+
+
+.formRow > *:nth-child(1) {
+  display: inline-block;
+  width: 80px;
+}
+.formRow > *:nth-child(2) {
+  display: inline-block;
+  width: 200px;
+}
+.formRow > *:nth-child(3) {
+  flex: 1 1;
+  min-width: 200px;
+}
+
