@@ -24,7 +24,7 @@
     "recharts": "^2.0.6",
     "redux-logger": "^3.0.6",
     "sane-email-validation": "^3.0.1",
-    "web-toolkit": "0.5.2"
+    "web-toolkit": "0.5.3"
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",

@@ -18,60 +18,64 @@ export default function Sequences() {
 
   const columns = [
     {
-      Header: 'ID',
-      accessor: s => s.id,
-      width: 30,
-      disableFilters: true,
-    },
-    {
-      Header: 'Strain',
-      accessor: 'strain',
-      disableFilters: true,
-    },
-    {
-      Header: 'Age',
-      accessor: 'age',
-      width: 40,
-      disableFilters: true,
-    },
-    {
-      Header: 'Sex',
-      accessor: 'sex',
-      width: 40,
-      disableFilters: true,
-    },
-    {
-      Header: 'Province',
-      accessor: 'province',
-      width: 40,
-      disableFilters: true,
-    },
-    {
-      Header: 'Lab',
-      accessor: 'lab',
-      width: 80,
-      disableFilters: true,
-    },
-    {
-      Header: 'Collection Date',
-      accessor: s => safeFormat(s.collectionDate),
-      disableFilters: true,
+      Header: 'Metadata',
+      columns: [
+        {
+          Header: 'ID',
+          accessor: s => s.id,
+          width: 30,
+        },
+        {
+          Header: 'Strain',
+          accessor: 'strain',
+        },
+        {
+          Header: 'Age',
+          accessor: 'age',
+          width: 40,
+        },
+        {
+          Header: 'Sex',
+          accessor: 'sex',
+          width: 40,
+        },
+        {
+          Header: 'Province',
+          accessor: 'province',
+          width: 40,
+        },
+        {
+          Header: 'Lab',
+          accessor: 'lab',
+          width: 80,
+        },
+        {
+          Header: 'Collection Date',
+          accessor: s => safeFormat(s.collectionDate),
+        },
+        {
+          Header: 'Data (size)',
+          accessor: 'data',
+        },
+      ],
     },
     {
       Header: 'Upload',
-      accessor: s => renderUpload(uploadsById[s.uploadId]),
-      disableFilters: true,
-    },
-    !isAdmin ? null :
-      {
-        Header: 'User',
-        accessor: s => usersById[uploadsById[s.uploadId].userId].email,
-        disableFilters: true,
-      },
-    {
-      Header: 'Data (size)',
-      accessor: 'data',
-      disableFilters: true,
+      columns: [
+        {
+          Header: 'Date',
+          accessor: s => safeFormat(uploadsById[s.uploadId].createdAt),
+        },
+        {
+          Header: 'Name',
+          accessor: s => renderUpload(uploadsById[s.uploadId]),
+        },
+        !isAdmin ? null :
+          {
+            Header: 'User',
+            accessor: s => usersById[uploadsById[s.uploadId].userId].email,
+          },
+      ].filter(Boolean),
     },
   ]
   .filter(Boolean)
@@ -116,10 +120,7 @@ function getProvinceData(sequences) {
 }
 
 function renderUpload(upload) {
-  const { createdAt } = upload
-  const name = upload.name || `#${upload.id}`
-
-  return <span>{name} <small>({format(new Date(createdAt), 'd MMM yyyy')})</small></span>
+  return upload.name || `#${upload.id}`
 }
 
 function safeFormat(date) {
