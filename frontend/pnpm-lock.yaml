@@ -20,7 +20,7 @@ dependencies:
   recharts: 2.0.6_react-dom@17.0.1+react@17.0.1
   redux-logger: 3.0.6
   sane-email-validation: 3.0.1
-  web-toolkit: 0.5.3_react-dom@17.0.1+react@17.0.1
+  web-toolkit: 0.5.5_react-dom@17.0.1+react@17.0.1
 lockfileVersion: 5.2
 packages:
   /@babel/code-frame/7.10.4:
@@ -1707,7 +1707,7 @@ packages:
   /@nodelib/fs.scandir/2.1.4:
     dependencies:
       '@nodelib/fs.stat': 2.0.4
-      run-parallel: 1.1.10
+      run-parallel: 1.2.0
     dev: false
     engines:
       node: '>= 8'
@@ -10397,6 +10397,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==
+  /queue-microtask/1.2.2:
+    dev: false
+    resolution:
+      integrity: sha512-dB15eXv3p2jDlbOiNLyMabYg1/sXvppd8DP2J3EOCQ0AkuSXCW2tP7mnVouVLJKgUMY6yP0kcQDVpLCN13h4Xg==
   /raf-schd/4.0.2:
     dev: false
     resolution:
@@ -11344,10 +11348,12 @@ packages:
       node: 6.* || >= 7.*
     resolution:
       integrity: sha512-nfMOlASu9OnRJo1mbEk2cz0D56a1MBNrJ7orjRZQG10XDyuvwksKbuXNp6qa+kbn839HwjwhBzhFmdsaEAfauA==
-  /run-parallel/1.1.10:
+  /run-parallel/1.2.0:
+    dependencies:
+      queue-microtask: 1.2.2
     dev: false
     resolution:
-      integrity: sha512-zb/1OuZ6flOlH6tQyMPUrE3x3Ulxjlo9WIVXR4yVYi4H9UXQaeIsPbLn2R3O3vQCnDKkAl2qHiuocKKX4Tz/Sw==
+      integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==
   /run-queue/1.0.3:
     dependencies:
       aproba: 1.2.0
@@ -12909,7 +12915,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-O84QOnr0icsbFGLS0O3bI5FswxzRr8/gHwWkDlQFskhSPryQXvrTMxjxGP4+iWYoauLoBvfDpkrOauZ+0iZpDA==
-  /web-toolkit/0.5.3_react-dom@17.0.1+react@17.0.1:
+  /web-toolkit/0.5.5_react-dom@17.0.1+react@17.0.1:
     dependencies:
       '@babel/runtime': 7.12.13
       '@popperjs/core': 2.7.0
@@ -12933,7 +12939,7 @@ packages:
       react: ^17.0.1
       react-dom: ^17.0.1
     resolution:
-      integrity: sha512-FzM3MoH2sokZ0p5OvHUdHetJMy2xe8FvGWvRUkWWVDHwDMJjgZKYA0JK7NaUaSNhl8ObuyM19DK0SwuyujUfOg==
+      integrity: sha512-VGRtWeFEKyEXFb27zhLzOoisA7VCyAfrsB3a7MxU9f+SOkHedO1OLxcLxxA/3wTNv6gnaWU0r9l+KN+sKnR/dA==
   /webidl-conversions/5.0.0:
     dev: false
     engines:
@@ -13470,4 +13476,4 @@ specifiers:
   recharts: ^2.0.6
   redux-logger: ^3.0.6
   sane-email-validation: ^3.0.1
-  web-toolkit: 0.5.3
+  web-toolkit: 0.5.5

@@ -1,4 +1,8 @@
 
+.container {
+  max-width: 800px;
+}
+
 .label {
   font-size: 1rem;
   font-weight: 700;
@@ -26,6 +30,12 @@
 }
 .inputRow > td:nth-child(2) {
   color: #444;
+}
+
+.help {
+  color: #444;
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
 .descriptions {
