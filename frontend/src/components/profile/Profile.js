@@ -1,9 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Box, Label } from 'web-toolkit'
+import { Box, Icon, Label } from 'web-toolkit'
 import Page from '../page'
 import EditCredentials from './EditCredentials'
 import EditDetails from './EditDetails'
+import styles from './Profile.module.css'
 
 /* type: DataTypes.ENUM(Object.values(USER_TYPE)),
  * firstName: DataTypes.STRING,
@@ -16,21 +17,26 @@ import EditDetails from './EditDetails'
  * token: DataTypes.STRING(36), */
 
 export default function Profile() {
+  const user = useSelector(s => s.auth.user)
   const error = useSelector(s => s.auth.error)
 
   return (
-    <Page>
-      <h2>Profile</h2>
-
-      {error &&
-        <Label error>
-          {error.message}
+    <Page center='horizontal'>
+      <Box vertical align='stretch'>
+        <Label className={styles.welcome}>
+          Welcome, {user.firstName}
         </Label>
-      }
 
-      <Box vertical align='start'>
-        <EditCredentials />
-        <EditDetails />
+        {error &&
+          <Label error>
+            {error.message}
+          </Label>
+        }
+
+        <Box vertical align='start'>
+          <EditCredentials />
+          <EditDetails />
+        </Box>
       </Box>
     </Page>
   );
