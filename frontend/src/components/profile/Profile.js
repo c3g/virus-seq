@@ -23,9 +23,15 @@ export default function Profile() {
   return (
     <Page center='horizontal'>
       <Box vertical align='stretch'>
-        <Label className={styles.welcome}>
-          Welcome, {user.firstName}
-        </Label>
+        <Box horizontal align className={styles.welcome}>
+          <Icon
+            name='avatar-default'
+            className={styles.welcomeIcon}
+          />
+          <Label className={styles.welcomeLabel}>
+            Welcome, {user.firstName}
+          </Label>
+        </Box>
 
         {error &&
           <Label error>
