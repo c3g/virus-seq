@@ -23,7 +23,7 @@ export default function Sequences() {
         {
           Header: 'ID',
           accessor: s => s.id,
-          width: 30,
+          width: 40,
         },
         {
           Header: 'Strain',
@@ -52,10 +52,12 @@ export default function Sequences() {
         {
           Header: 'Collection Date',
           accessor: s => safeFormat(s.collectionDate),
+          width: 100,
         },
         {
           Header: 'Data (size)',
           accessor: 'data',
+          width: 90,
         },
       ],
     },
@@ -65,6 +67,7 @@ export default function Sequences() {
         {
           Header: 'Date',
           accessor: s => safeFormat(uploadsById[s.uploadId].createdAt),
+          width: 100,
         },
         {
           Header: 'Name',
