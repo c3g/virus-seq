@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
       else
         throw new Error('User already exists')
     }
-    user = User.create({ email })
+    user = await User.create({ email })
     try {
       await sendEmail({
         to: email,
